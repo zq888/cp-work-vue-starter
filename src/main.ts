@@ -1,9 +1,11 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
+import store from "./store/index";
 
-console.log(store.state.title);
+import Vuetify from "vuetify";
+import "vuetify/dist/vuetify.css";
+Vue.use(Vuetify);
 
 Vue.config.productionTip = false;
 
