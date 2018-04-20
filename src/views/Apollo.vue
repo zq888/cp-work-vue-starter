@@ -6,7 +6,7 @@
 
 <script>
 // @ is an alias to /src
-import ApolloExample from "@/components/ApolloExample.vue";
+import ApolloExample from "@/components/Database/ApolloExample.vue";
 
 export default {
   components: {

@@ -1,9 +1,8 @@
 <template>
   <v-container>
-    <router-link to="/">Home</router-link>
-  <v-carousel>
-    <v-carousel-item v-for="(item,i) in items" :src="item.src" :key="i"></v-carousel-item>
-  </v-carousel>
+    <v-carousel>
+      <v-carousel-item v-for="(item,i) in items" :src="item.src" :key="i"></v-carousel-item>
+    </v-carousel>
   </v-container>
 </template>
 

@@ -11,7 +11,7 @@
 
     <!-- Apollo watched Graphql query -->
     <ApolloQuery
-      :query="require('../graphql/HelloWorld.gql')"
+      :query="require('@/graphql/HelloWorld.gql')"
       :variables="{ name }"
     >
       <template slot-scope="{ result: { loading, error, data } }">
@@ -31,10 +31,10 @@
 
     <!-- Tchat example -->
     <ApolloQuery
-      :query="require('../graphql/Messages.gql')"
+      :query="require('@/graphql/Messages.gql')"
     >
       <ApolloSubscribeToMore
-        :document="require('../graphql/MessageAdded.gql')"
+        :document="require('@/graphql/MessageAdded.gql')"
         :update-query="onMessageAdded"
       />
 
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import MESSAGE_ADD_MUTATION from "../graphql/MessageAdd.gql";
+import MESSAGE_ADD_MUTATION from "@/graphql/MessageAdd.gql";
 
 export default {
   data() {

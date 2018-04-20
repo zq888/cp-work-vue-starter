@@ -1,9 +1,7 @@
 <template>
-    <v-container>
-    <router-link to="/about">About</router-link>|
-    <router-link to="/apollo">Apollo</router-link> |
-    {{userDbName}}
-    </v-container>
+  <div>
+  {{userDbName}}
+  </div>
 </template>
 
 <script lang="ts">
