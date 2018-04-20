@@ -4,6 +4,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 import User from "./modules/User";
+import plugins from "./plugin";
 
 interface State {
   title: string;
@@ -15,6 +16,7 @@ const state: State = {
 
 export default new Vuex.Store({
   state,
+  plugins,
   modules: {
     User
   },

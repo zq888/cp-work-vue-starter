@@ -6,12 +6,12 @@ import store from "./store/index";
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.css";
 Vue.use(Vuetify);
-// import { apolloProvider } from "./vue-apollo";
+import { apolloProvider } from "./vue-apollo";
 
 Vue.config.productionTip = false;
 
 new Vue({
-  // provide: apolloProvider.provide(),
+  provide: apolloProvider.provide(),
   router,
   store,
   render: h => h(App)
