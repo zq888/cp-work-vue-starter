@@ -1,7 +1,17 @@
 <template>
-  <div>
-  {{userDbName}}
-  </div>
+  <v-jumbotron color="grey lighten-2">
+    <v-container fill-height>
+      <v-layout align-center>
+        <v-flex>
+          <h3 class="display-3">Welcome to the site</h3>
+          <span class="subheading">Lorem ipsum dolor sit amet, pri veniam forensibus id. Vis maluisset molestiae id, ad semper lobortis cum. At impetus detraxit incorrupte usu, repudiare assueverit ex eum, ne nam essent vocent admodum.</span>
+          <v-divider class="my-3"></v-divider>
+          <div class="title mb-3">Check out our newest features!</div>
+          <v-btn large color="primary" class="mx-0">{{userDbName}}</v-btn>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-jumbotron>
 </template>
 
 <script lang="ts">
@@ -11,12 +21,10 @@ import { State, Getter } from "vuex-class";
 @Component
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
-  @State("title") private title: string;
+  @State("title") private title!: string;
   @State("name", { namespace: "User" })
-  private userDbName: string;
+  private userDbName!: string;
   Message: string;
-
-  cards: any[];
 
   constructor() {
     super();
@@ -25,23 +33,6 @@ export default class HelloWorld extends Vue {
   created() {
     this.title;
     this.Message = "My message";
-    this.cards = [
-      {
-        title: "Pre-fab homes",
-        src: "https://vuetifyjs.com/static/doc-images/cards/house.jpg",
-        flex: 12
-      },
-      {
-        title: "Favorite road trips",
-        src: "https://vuetifyjs.com/static/doc-images/cards/road.jpg",
-        flex: 6
-      },
-      {
-        title: "Best airlines",
-        src: "https://vuetifyjs.com/static/doc-images/cards/plane.jpg",
-        flex: 6
-      }
-    ];
   }
 }
 </script>

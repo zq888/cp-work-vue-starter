@@ -11,6 +11,8 @@
     "allowSyntheticDefaultImports": true,
     "strictPropertyInitialization": false,
     "strictFunctionTypes": false,
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": true,
     "sourceMap": true,
     "allowJs": true,
     "baseUrl": ".",

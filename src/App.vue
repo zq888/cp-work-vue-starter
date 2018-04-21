@@ -135,16 +135,22 @@ export default class App extends Vue {
 
     this.drawer = null;
     this.items = [
-      { icon: "contacts", text: "Contacts", to: "/about" },
+      { icon: "help", text: "Login", to: "/login" },
+      { icon: "help", text: "Welcome", to: "/" },
+      { icon: "contacts", text: "Contacts", to: "/user" },
       { icon: "history", text: "Apollo", to: "/apollo" },
       { icon: "content_copy", text: "Duplicates", to: "/about" },
       {
         icon: "keyboard_arrow_up",
         "icon-alt": "keyboard_arrow_down",
-        text: "Labels",
-        to: "/about",
+        text: "Database",
+        to: "/database",
         model: true,
-        children: [{ icon: "add", text: "Create label", to: "/about" }]
+        children: [
+          { icon: "add", text: "Create", to: "/database" },
+          { icon: "add", text: "Manage", to: "/database/manage" },
+          { icon: "add", text: "Import/Export", to: "/database/export" }
+        ]
       },
       {
         icon: "keyboard_arrow_up",
@@ -161,7 +167,7 @@ export default class App extends Vue {
       },
       { icon: "settings", text: "Settings", to: "/about" },
       { icon: "chat_bubble", text: "Send feedback", to: "/about" },
-      { icon: "help", text: "Help", to: "/about" },
+      { icon: "help", text: "Help", to: "/help" },
       { icon: "phonelink", text: "App downloads", to: "/about" },
       { icon: "keyboard", text: "Go to the old version", to: "/about" }
     ];
