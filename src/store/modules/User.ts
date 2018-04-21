@@ -1,21 +1,19 @@
 import Base from "./Base";
 
-import { baseState as State } from "@/store/model/BaseModel";
+import { IBaseState as State } from "@/store/Model/BaseModel";
 
 const state: State = {
-  name: "user",
-  items: [
-    {id: "xing wenju", icon:"click"}
-  ],
-  activeItem: {},
-  filterKey: "",
-  sortKey: ""
+    name: "user",
+    items: [{ id: "xing wenju", icon: "click" }],
+    activeItem: {},
+    filterKey: "",
+    sortKey: "",
 };
 
 export default {
-  namespaced: true,
-  state,
-  mutations: Base.mutations,
-  actions: Base.actions,
-  getters: Base.getters
+    namespaced: true,
+    state,
+    mutations: Base.mutations,
+    actions: Base.actions,
+    getters: Base.getters,
 };

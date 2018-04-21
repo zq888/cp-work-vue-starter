@@ -6,23 +6,23 @@ Vue.use(Vuex);
 import User from "./modules/User";
 import plugins from "./plugin";
 
-interface State {
-  title: string;
+interface IState {
+    title: string;
 }
 
-const state: State = {
-  title: "xing wenju"
+const state: IState = {
+    title: "xing wenju",
 };
 
 export default new Vuex.Store({
-  state,
-  plugins,
-  modules: {
-    User
-  },
-  getters: {
-    mytitle: state => state.title
-  },
-  mutations: {},
-  actions: {}
+    state,
+    plugins,
+    modules: {
+        User,
+    },
+    getters: {
+        mytitle: state => state.title,
+    },
+    mutations: {},
+    actions: {},
 });

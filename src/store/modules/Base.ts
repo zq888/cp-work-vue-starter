@@ -15,7 +15,7 @@ import {
     removeItem,
 } from "@/store/api/Nedb";
 
-import { baseState as State } from "@/store/Model/BaseModel";
+import { IBaseState as State } from "@/store/Model/BaseModel";
 const state: State = {
     name: "base",
     items: [],

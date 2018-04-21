@@ -6,13 +6,13 @@
 import path from "path";
 import fs from "fs";
 import Datastore from "nedb";
-import { collections, databasePool } from "@/store/Model/BaseModel";
+import { collections, IDatabasePool } from "@/store/Model/BaseModel";
 import { log } from "@/util";
 
 let userPath = "";
 
 // Database pool in format [user -> user.db]
-let pool: databasePool = {};
+let pool: IDatabasePool = {};
 
 // Database persistence Module
 export function dbInit() {
