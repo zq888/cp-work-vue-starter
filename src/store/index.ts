@@ -6,6 +6,9 @@ Vue.use(Vuex);
 import User from "./modules/User";
 import plugins from "./plugin";
 
+import { dbInit } from "@/store/api/Nedb";
+dbInit();
+
 interface IState {
     title: string;
 }

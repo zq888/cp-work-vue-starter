@@ -12,14 +12,14 @@ import { log } from "@/util";
 let userPath = "";
 
 // Database pool in format [user -> user.db]
-let pool: IDatabasePool = {};
+let pool: any = {};
 
 // Database persistence Module
 export function dbInit() {
     for (let collection of collections) {
         pool[collection] = new Datastore({
             autoload: true,
-            filename: path.join(userPath, `/${collection}.db`),
+            filename: path.join(userPath, `${collection}`),
         });
     }
 }
@@ -27,13 +27,13 @@ export function dbInit() {
 export function dbCreate(collection: string) {
     pool[collection] = new Datastore({
         autoload: true,
-        filename: path.join(userPath, `/${collection}.db`),
+        filename: path.join(userPath, `${collection}`),
     });
 }
 
 export function dbRemove(collection: string) {
     // pool.splice(pool.indexOf(collection), 1);
-    let filename = path.join(userPath, `/${collection}.db`);
+    let filename = path.join(userPath, `${collection}`);
     log.err(filename);
     if (fs.existsSync(filename)) {
         log.err("Removing...");

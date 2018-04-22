@@ -16,13 +16,6 @@ import {
 } from "@/store/api/Nedb";
 
 import { IBaseState as State } from "@/store/Model/BaseModel";
-const state: State = {
-    name: "base",
-    items: [],
-    activeItem: {},
-    filterKey: "",
-    sortKey: "",
-};
 
 const getters = {
     moduleName: (state: State) => state.name,
@@ -40,13 +33,14 @@ const mutations = {
         state.items.push(payload);
     },
     [types.mDelete]: (state: State, payload: any) => {
-        state.items.push(payload);
+        state.items = state.items.filter((item: any) => item._id !== payload._id);
     },
     [types.mUpdate]: (state: State, payload: any) => {
-        state.items.push(payload);
+        let item = state.items.filter((item: any) => item._id === payload._id);
+        item = payload;
     },
     [types.mRead]: (state: State, payload: any) => {
-        state.items.push(payload);
+        state.items = state.items;
     },
     [types.mSet]: (state: State, payload: any) => {
         state.activeItem[payload.target.name] = payload.target.value;
@@ -56,16 +50,15 @@ const mutations = {
 const actions = {
     [types.aCreate]: async (ctx: ActionContext<State, any>, payload: any) => {
         // async and persistence actions
-        let { _id, ...cleanPayload } = payload;
-        let newDoc = await addItem(dbOpen(state.name), cleanPayload);
+        let newDoc = await addItem(dbOpen(ctx.state.name), payload);
         ctx.commit("mutationCreate", newDoc);
     },
     [types.aDelete]: async (ctx: ActionContext<State, any>, payload: any) => {
         // async and persistence actions
-        let n = await removeItem(dbOpen(state.name), {
+        let n = await removeItem(dbOpen(ctx.state.name), {
             _id: payload._id,
         });
-        if (n !== null) ctx.commit("mutationDelete", payload._id);
+        if (n !== null) ctx.commit("mutationDelete", payload);
     },
     [types.mUpdate]: async (ctx: ActionContext<State, any>, payload: any) => {
         // async and persistence actions
@@ -73,20 +66,19 @@ const actions = {
         let query = {
             _id: payload._id,
         };
-        let n = await updateItem(dbOpen(state.name), query, cleanPayload);
+        let n = await updateItem(dbOpen(ctx.state.name), query, cleanPayload);
         if (n !== null) ctx.commit("mutationUpdate", payload);
         ctx.commit("mutationUpdate", payload);
     },
     [types.mRead]: async (ctx: ActionContext<State, any>, payload: any) => {
         // async and persistence actions
-        let db = dbOpen(state.name);
+        let db = dbOpen(ctx.state.name);
         let docs = await findItem(db, {});
         ctx.commit("mutationRead", payload);
     },
 };
 
 export default {
-    state,
     getters,
     actions,
     mutations,

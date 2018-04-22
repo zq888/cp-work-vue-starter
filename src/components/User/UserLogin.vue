@@ -4,30 +4,19 @@
       v-model="name"
       label="Name"
       :counter="10"
-      v-validate="'required|max:10'"
       data-vv-name="name"
       required
     ></v-text-field>
     <v-text-field
       v-model="email"
       label="E-mail"
-      v-validate="'required|email'"
       data-vv-name="email"
       required
     ></v-text-field>
-    <v-select
-      :items="items"
-      v-model="select"
-      label="Select"
-      v-validate="'required'"
-      data-vv-name="select"
-      required
-    ></v-select>
     <v-checkbox
       v-model="checkbox"
       value="1"
       label="Option"
-      v-validate="'required'"
       data-vv-name="checkbox"
       type="checkbox"
       required
@@ -37,19 +26,33 @@
     <v-btn @click="clear">clear</v-btn>
   </form>
 </template>
-<script>
-export default {
-  $_veeValidate: {
-    validator: "new"
-  },
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { State, Action, Getter } from "vuex-class";
 
-  data: () => ({
-    name: "",
-    email: "",
-    select: null,
-    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
-    checkbox: null,
-    dictionary: {
+import * as types from "@/store/types";
+
+@Component
+export default class UserLogin extends Vue {
+  name: string;
+  email: string;
+  select: any;
+  checkbox: any;
+  dictionary: any;
+  @State("name", { namespace: "User" })
+  userDbName!: string;
+  @State("items", { namespace: "User" })
+  items: any[];
+  @Action(types.aCreate, { namespace: "User" })
+  createUser: Function;
+
+  constructor() {
+    super();
+    this.name = "";
+    this.email = "";
+    this.select = null;
+    this.checkbox = null;
+    this.dictionary = {
       attributes: {
         email: "E-mail Address"
         // custom attributes
@@ -64,24 +67,18 @@ export default {
           required: "Select field is required"
         }
       }
-    }
-  }),
-
-  mounted() {
-    this.$validator.localize("en", this.dictionary);
-  },
-
-  methods: {
-    submit() {
-      this.$validator.validateAll();
-    },
-    clear() {
-      this.name = "";
-      this.email = "";
-      this.select = null;
-      this.checkbox = null;
-      this.$validator.reset();
-    }
+    };
   }
-};
+  mounted() {}
+
+  submit() {
+    this.createUser({ name: this.name, email: this.email });
+  }
+  clear() {
+    this.name = "";
+    this.email = "";
+    this.select = null;
+    this.checkbox = null;
+  }
+}
 </script>
