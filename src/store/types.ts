@@ -1,11 +1,13 @@
 export const mCreate = "mutationCreate",
-  mDelete = "mutationDelete",
-  mUpdate = "mutationUpdate",
-  mRead = "mutationRead",
-  mSet = "mutationSet";
+    mDelete = "mutationDelete",
+    mUpdate = "mutationUpdate",
+    mRead = "mutationRead",
+    mSetValue = "mutationSetValue",
+    mUnSetActive = "mutationUnSetActive",
+    mSetActive = "mutationSetActive";
 
 export const aCreate = "actionCreate",
-  aDelete = "actionDelete",
-  aUpdate = "actionUpdate",
-  aRead = "actionRead",
-  aSet = "actionSet";
+    aDelete = "actionDelete",
+    aUpdate = "actionUpdate",
+    aRead = "actionRead",
+    aSet = "actionSet";

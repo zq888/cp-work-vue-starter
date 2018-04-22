@@ -1,4 +1,4 @@
-<template> 
+<template>
   <v-layout row wrap>
     <v-btn
       fab
@@ -85,12 +85,11 @@ export default class RegisterDialog extends Vue {
   dialog: boolean;
   constructor() {
     super();
-    this.dialog = false;
+    this.dialog = true;
   }
 }
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons");
 /* Global CSS */
 </style>

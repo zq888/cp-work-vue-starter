@@ -1,6 +1,5 @@
 <template>
   <div>
-    <UserInfo />
     <UserTable />
   </div>
 </template>

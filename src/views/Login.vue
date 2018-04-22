@@ -1,18 +1,16 @@
 <template>
   <div>
-    <UserInfo />
+    <RegisterDialog />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import UserLogin from "@/components/User/UserLogin.vue";
-import UserInfo from "@/components/User/UserInfo.vue";
+import RegisterDialog from "@/components/Shared/RegisterDialog.vue";
 
 export default {
   components: {
-    UserLogin,
-    UserInfo
+    RegisterDialog
   }
 };
 </script>

@@ -42,8 +42,11 @@ const mutations = {
     [types.mRead]: (state: State, payload: any) => {
         state.items = state.items;
     },
-    [types.mSet]: (state: State, payload: any) => {
+    [types.mSetValue]: (state: State, payload: any) => {
         state.activeItem[payload.target.name] = payload.target.value;
+    },
+    [types.mSetActive]: (state: State, payload: any) => {
+        state.activeItem = payload;
     },
 };
 
