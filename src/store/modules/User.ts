@@ -1,11 +1,11 @@
 import Base from "./Base";
 
-import { IBaseState as State } from "@/store/Model/BaseModel";
+import { IBaseState as State, defaultUser } from "@/store/Model/BaseModel";
 
 const state: State = {
     name: "user",
-    items: [{ id: "xing wenju", icon: "click" }],
-    activeItem: {},
+    items: [],
+    activeItem: defaultUser,
     filterKey: "",
     sortKey: "",
 };

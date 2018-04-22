@@ -1,43 +1,51 @@
 <template>
-    <v-layout wrap>
-  <v-form v-model="valid" ref="form" lazy-validation>
+  <form>
     <v-text-field
-      label="Name"
-      v-model="name"
-      :rules="nameRules"
-      :counter="10"
+      v-for="v, k in activeItem" v-bind:key="v._id" v-bind:label="k"
+      v-bind:name="k" v-bind:id="k" v-bind:value="v"
+      @input.native="setValue($event)"
       required
     ></v-text-field>
-    <v-text-field
-      label="E-mail"
-      v-model="email"
-      :rules="emailRules"
-      required
-    ></v-text-field>
-    <v-select
-      label="Item"
-      v-model="select"
-      :items="items"
-      :rules="[v => !!v || 'Item is required']"
-      required
-    ></v-select>
-    <v-checkbox
-      label="Do you agree?"
-      v-model="checkbox"
-      :rules="[v => !!v || 'You must agree to continue!']"
-      required
-    ></v-checkbox>
-
-    <v-btn
-      @click="submit"
-      :disabled="!valid"
-    >
-      submit
-    </v-btn>
+    <v-btn @click="createItem">Save</v-btn>
     <v-btn @click="clear">clear</v-btn>
-  </v-form>
-    </v-layout>
+    <v-btn @click="deleteItem">Delete</v-btn>
+  </form>
 </template>
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { State, Mutation, Action, Getter } from "vuex-class";
 
-<script>
+import * as types from "@/store/types";
+
+@Component
+export default class UserLogin extends Vue {
+  @State("activeItem", { namespace: "User" })
+  activeItem!: object;
+  @State("items", { namespace: "User" })
+  items: any[];
+  @Getter("itemFiltered", { namespace: "User" })
+  itemFiltered: any[];
+  @Mutation(types.mSet, { namespace: "User" })
+  setValue: Function;
+  @Action(types.aCreate, { namespace: "User" })
+  createUser: Function;
+  @Action(types.aDelete, { namespace: "User" })
+  deleteUser: Function;
+  @Action(types.aUpdate, { namespace: "User" })
+  updateUser: Function;
+
+  constructor() {
+    super();
+  }
+
+  createItem() {
+    this.createUser(this.activeItem);
+  }
+
+  findItems() {}
+  deleteItem() {
+    this.deleteUser(this.activeItem);
+  }
+  clear() {}
+}
 </script>

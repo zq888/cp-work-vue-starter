@@ -68,7 +68,6 @@ const actions = {
         };
         let n = await updateItem(dbOpen(ctx.state.name), query, cleanPayload);
         if (n !== null) ctx.commit("mutationUpdate", payload);
-        ctx.commit("mutationUpdate", payload);
     },
     [types.mRead]: async (ctx: ActionContext<State, any>, payload: any) => {
         // async and persistence actions

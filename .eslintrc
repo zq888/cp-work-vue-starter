@@ -4,5 +4,6 @@
     "plugin:vue/essential",
     "@vue/prettier",
     "@vue/typescript"
-  ]
+  ],
+  "rules": {"vue/require-v-for-key": "warn"}
 }
