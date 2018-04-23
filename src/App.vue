@@ -135,7 +135,6 @@ export default class App extends Vue {
 
     this.drawer = null;
     this.items = [
-      { icon: "help", text: "Login", to: "/login" },
       { icon: "help", text: "Welcome", to: "/" },
       { icon: "contacts", text: "Contacts", to: "/user" },
       { icon: "history", text: "Apollo", to: "/apollo" },

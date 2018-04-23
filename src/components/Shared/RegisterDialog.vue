@@ -85,7 +85,7 @@ export default class RegisterDialog extends Vue {
   dialog: boolean;
   constructor() {
     super();
-    this.dialog = true;
+    this.dialog = false;
   }
 }
 </script>
