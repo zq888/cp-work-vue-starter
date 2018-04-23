@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn @click="openDialog" @click.stop="dialog = !dialog" color="primary" dark slot="activator" class="mb-2">New</v-btn>
+    <v-btn @click="openDialog" color="primary" dark slot="activator" class="mb-2">New</v-btn>
     <v-dialog v-model="dialog" width="800px">
       <v-card>
         <v-card-title>
@@ -8,7 +8,7 @@
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
-              <UserInfo />
+              <UserInfo :editing="editing" />
               <v-btn @click="dialog = false">close</v-btn>
           </v-container>
         </v-card-text>
@@ -27,10 +27,10 @@
         <td class="text-xs-right">{{ props.item['民族'] }}</td>
         <td class="text-xs-right">{{ props.item['学历'] }}</td>
         <td class="justify-center layout px-0">
-          <v-btn icon class="mx-0" @click="editUser(props.item)">
+          <v-btn icon class="mx-0" @click="editItem(props.item)">
             <v-icon color="teal">edit</v-icon>
           </v-btn>
-          <v-btn icon class="mx-0" @click="deleteUser(props.item)">
+          <v-btn icon class="mx-0" @click="deleteItem(props.item)">
             <v-icon color="pink">delete</v-icon>
           </v-btn>
         </td>
@@ -45,39 +45,45 @@ import { State, Mutation, Action, Getter } from "vuex-class";
 import * as types from "@/store/types";
 import UserInfo from "@/components/User/UserInfo.vue";
 import { defaultUser } from "@/store/Model/BaseModel";
+const nsUser = { namespace: types.nsUser };
 
 @Component({
   components: { UserInfo }
 })
 export default class UserLogin extends Vue {
+  // Props
   dialog: boolean = false;
+  editing: boolean = false;
   formTitle: string = "人员信息";
   headers: any[];
   editIndex: number = -1;
-  @State("editing", { namespace: "User" })
+  // State
+  @State("editing", nsUser)
   editing!: object;
-  @State("activeItem", { namespace: "User" })
+  @State("activeItem", nsUser)
   activeItem!: object;
-  @State("items", { namespace: "User" })
+  @State("items", nsUser)
   items: any[];
-  @Getter("itemFiltered", { namespace: "User" })
+  // Getters
+  @Getter("itemFiltered", nsUser)
   itemFiltered: any[];
-  @Mutation(types.mSetActive, { namespace: "User" })
+  // Mutations
+  @Mutation(types.mSetActive, nsUser)
   setActive: Function;
-  @Mutation(types.mSetValue, { namespace: "User" })
+  @Mutation(types.mSetValue, nsUser)
   setValue: Function;
-  @Action(types.aCreate, { namespace: "User" })
-  createUser: Function;
-  @Action(types.aDelete, { namespace: "User" })
-  deleteUser: Function;
-  @Action(types.aUpdate, { namespace: "User" })
-  updateUser: Function;
+  // Actions
+  @Action(types.aCreate, nsUser)
+  createItem: Function;
+  @Action(types.aDelete, nsUser)
+  deleteItem: Function;
+  @Action(types.aUpdate, nsUser)
+  updateItem: Function;
 
   constructor() {
     super();
     this.dialog = false;
-
-    this.setActive(defaultUser);
+    this.editing = false;
     this.headers = [
       {
         text: " 姓名",
@@ -92,12 +98,15 @@ export default class UserLogin extends Vue {
     ];
   }
 
-  editUser(item: any) {
+  editItem(item: any) {
+    this.editing = true;
     this.setActive(item);
     this.dialog = true;
   }
   openDialog() {
+    this.editing = false;
     this.setActive(defaultUser);
+    this.dialog = true;
   }
 }
 </script>
