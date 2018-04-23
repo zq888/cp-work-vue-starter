@@ -58,8 +58,6 @@ export default class UserLogin extends Vue {
   headers: any[];
   editIndex: number = -1;
   // State
-  @State("editing", nsUser)
-  editing!: object;
   @State("activeItem", nsUser)
   activeItem!: object;
   @State("items", nsUser)

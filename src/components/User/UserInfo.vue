@@ -54,13 +54,5 @@ export default class UserLogin extends Vue {
       this.createItem(this.activeItem);
     }
   }
-
-  createItem() {
-    this.createItem(this.activeItem);
-  }
-
-  updateItem() {
-    this.updateItem(this.activeItem);
-  }
 }
 </script>
