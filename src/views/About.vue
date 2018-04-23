@@ -14,20 +14,16 @@ import { State, Getter } from "vuex-class";
 export default class HelloWorld extends Vue {
   items: any[] = [
     {
-      src:
-        "https://pbs.twimg.com/profile_images/871923557332398080/M01F1Q4k_400x400.jpg"
+      src: "https://vuepress.vuejs.org/hero.png"
     },
     {
-      src:
-        "https://pbs.twimg.com/profile_images/871923557332398080/M01F1Q4k_400x400.jpg"
+      src: "https://vuepress.vuejs.org/hero.png"
     },
     {
-      src:
-        "https://pbs.twimg.com/profile_images/871923557332398080/M01F1Q4k_400x400.jpg"
+      src: "https://vuepress.vuejs.org/hero.png"
     },
     {
-      src:
-        "https://pbs.twimg.com/profile_images/871923557332398080/M01F1Q4k_400x400.jpg"
+      src: "https://vuepress.vuejs.org/hero.png"
     }
   ];
 }

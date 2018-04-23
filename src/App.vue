@@ -74,7 +74,7 @@
     >
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span class="hidden-sm-and-down">驻外机构管理系统</span>
+        <span class="hidden-sm-and-down">国际机构通用管理系统</span>
       </v-toolbar-title>
       <v-text-field
         flat
