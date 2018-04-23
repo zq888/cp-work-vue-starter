@@ -1,5 +1,5 @@
 module.exports = {
-  title: "Emacser && Vimer && Vuer",
+  title: "Emacser & Vimer & Vuer",
   description: "A sturnborn Emacser-Vimer-Vuer development notes",
   themeConfig: {
     // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
@@ -25,6 +25,18 @@ module.exports = {
       { text: "Vuex", link: "/zh/guide/vuex/" },
       { text: "Vue Router", link: "/zh/guide/vue-router/" },
       { text: "Google", link: "https://google.com" }
-    ]
+    ],
+    sidebar: {
+      '/zh/guide/electron/': [
+        '',
+        'one',
+        'two'
+      ],
+      '/zh/guide/vuex/': [
+        '',
+        'one',
+        'two'
+      ]
+    }
   }
 };

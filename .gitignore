@@ -1,7 +1,8 @@
 .DS_Store
-node_modules
-/dist
-/dist_electron
+node_modules/
+dist/
+dist/electron
+docs/.vuepress/dist/
 
 # local env files
 .env.local
@@ -22,5 +23,5 @@ yarn-error.log*
 
 yarn.lock
 package-lock.json
-/live
+live/
 .tern-port
