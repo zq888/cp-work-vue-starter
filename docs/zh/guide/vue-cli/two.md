@@ -6,7 +6,7 @@ title: "插件设计"
 
 本质上是一个调用`vue-cli-service`的`API`函数
 
-## `api`方法
+## API方法
 
 + `extendPackage`方法
 
