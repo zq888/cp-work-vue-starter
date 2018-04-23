@@ -1,13 +1,16 @@
+---
+title: "electron-vue"
+---
+
+#  基于 vue 构造 electron 应用程序。
+**Building awesome electron vue app**
+
 <div align="center">
 <br>
 <img width="500" src="https://vuepress.vuejs.org/hero.png" alt="electron-vue">
 <br>
 <br>
 </div>
-
-
-#  基于 vue 构造 electron 应用程序。
-**Building awesome electron vue app**
 
 ## Overview
 

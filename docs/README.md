@@ -28,3 +28,10 @@ vuepress dev
 # build to static files
 vuepress build
 ```
+
+## Use from `vue-cli`
+
+```bash
+vue add vuepress
+yarn docs:build
+```
