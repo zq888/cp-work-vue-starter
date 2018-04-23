@@ -6,6 +6,8 @@
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "press:dev": "vuepress dev docs",
+    "press:build": "vuepress build docs",
     "graphql-api": "vue-cli-service graphql-api",
     "run-graphql-api": "vue-cli-service run-graphql-api",
     "prod-graphql-api": "cross-env NODE_ENV=production vue-cli-service run-graphql-api",
@@ -53,7 +55,8 @@
     "nedb": "^1.8.0",
     "vue-cli-plugin-apollo": "^0.7.7",
     "vue-cli-plugin-electron-builder": "^0.1.7",
-    "vue-template-compiler": "^2.5.13"
+    "vue-template-compiler": "^2.5.13",
+    "vuepress": "^0.7.1"
   },
   "browserslist": [
     "> 1%",

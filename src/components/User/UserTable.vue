@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn @click="openDialog" color="primary" dark slot="activator" class="mb-2">New</v-btn>
+    <v-btn @click="addItem" color="primary" dark slot="activator" class="mb-2">New</v-btn>
     <v-dialog v-model="dialog" width="800px">
       <v-card>
         <v-card-title>
@@ -101,7 +101,8 @@ export default class UserLogin extends Vue {
     this.setActive(item);
     this.dialog = true;
   }
-  openDialog() {
+
+  addItem() {
     this.editing = false;
     this.setActive(defaultUser);
     this.dialog = true;
