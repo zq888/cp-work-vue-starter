@@ -56,7 +56,7 @@
     "vue-cli-plugin-apollo": "^0.7.7",
     "vue-cli-plugin-electron-builder": "^0.1.7",
     "vue-template-compiler": "^2.5.13",
-    "vuepress": "^0.7.1"
+    "vuepress": "^0.8.3"
   },
   "browserslist": [
     "> 1%",

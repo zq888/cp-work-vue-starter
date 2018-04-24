@@ -2,7 +2,7 @@ import * as types from "@/store/types";
 
 import { Store, Dispatch, Commit, ActionContext } from "vuex";
 
-import { baseFilter } from "@/util";
+import { ObjectKeysToArray, baseFilter } from "@/util";
 
 import {
     dbCreate,
@@ -21,7 +21,7 @@ const getters = {
     moduleName: (state: State) => state.name,
     itemCounts: (state: State) => state.items.length,
     itemKeys: (state: State) => {
-        return [];
+        return ObjectKeysToArray(state.activeItem);
     },
     itemFiltered: (state: State) => {
         return baseFilter(state.items, state.sortKey, state.filterKey);

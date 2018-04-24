@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn @click="addItem" color="primary" dark slot="activator" class="mb-2">New</v-btn>
-    <v-dialog v-model="dialog" width="800px">
+    <v-dialog v-model="dialog" width="80%">
       <v-card>
         <v-card-title>
           <span class="headline">{{ formTitle }}</span>
@@ -21,11 +21,10 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
-        <td>{{ props.item['姓名'] }}</td>
-        <td class="text-xs-right">{{ props.item['部门'] }}</td>
-        <td class="text-xs-right">{{ props.item['性别'] }}</td>
-        <td class="text-xs-right">{{ props.item['民族'] }}</td>
-        <td class="text-xs-right">{{ props.item['学历'] }}</td>
+        <td :key="header.text" :autocomplete="props.item[header.text]"
+            v-for="header in headers">
+            {{ props.item[header.text] }}
+        </td>
         <td class="justify-center layout px-0">
           <v-btn icon class="mx-0" @click="editItem(props.item)">
             <v-icon color="teal">edit</v-icon>
@@ -65,6 +64,8 @@ export default class UserLogin extends Vue {
   // Getters
   @Getter("itemFiltered", nsUser)
   itemFiltered: any[];
+  @Getter("itemKeys", nsUser)
+  itemKeys: any[];
   // Mutations
   @Mutation(types.mSetActive, nsUser)
   setActive: Function;
@@ -83,17 +84,32 @@ export default class UserLogin extends Vue {
     this.dialog = false;
     this.editing = false;
     this.headers = [
-      {
-        text: " 姓名",
-        align: "left",
-        sortable: false,
-        value: " 姓名"
-      },
-      { text: "部门", value: "部门" },
-      { text: "性别", value: "性别" },
-      { text: "民族", value: "民族" },
-      { text: "学历", value: "学历" }
+      /* {
+         *   text: "姓名",
+         *   align: "left",
+         *   value: "姓名",
+         * },
+         * { text: "部门", value: "部门" },
+         * { text: "性别", value: "性别" },
+         * { text: "民族", value: "民族" },
+         * { text: "学历", value: "学历" },
+         * { text: "外语语种", value: "外语语种" },
+         * { text: "对内身份", value: "对内身份" },
+         * { text: "对外身份", value: "对外身份" },
+         * { text: "行政级别", value: "行政级别" },
+         * { text: "担任工作", value: "担任工作" },*/
     ];
+  }
+
+  mounted() {
+    this.headerBuilder();
+  }
+
+  headerBuilder() {
+    this.itemKeys.map((key, index) => {
+      if (index > 10) return;
+      this.headers.push({ text: key, value: key, align: "left" });
+    });
   }
 
   editItem(item: any) {
