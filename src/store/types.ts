@@ -3,6 +3,7 @@ export const mCreate = "mutationCreate",
     mUpdate = "mutationUpdate",
     mRead = "mutationRead",
     mSetValue = "mutationSetValue",
+    mSetFilter = "mutationSetFilter",
     mUnSetActive = "mutationUnSetActive",
     mSetActive = "mutationSetActive";
 

@@ -9,12 +9,16 @@ import plugins from "./plugin";
 import { dbInit } from "@/store/api/Nedb";
 dbInit();
 
+import Base from "@/store/modules/Base";
+
 interface IState {
     title: string;
+    filterKey: string;
 }
 
 const state: IState = {
     title: "xing wenju",
+    filterKey: "",
 };
 
 export default new Vuex.Store({
@@ -26,6 +30,6 @@ export default new Vuex.Store({
     getters: {
         mytitle: state => state.title,
     },
-    mutations: {},
-    actions: {},
+    mutations: Base.mutations,
+    actions: Base.actions,
 });

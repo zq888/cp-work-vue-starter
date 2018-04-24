@@ -77,6 +77,9 @@
         <span class="hidden-sm-and-down">国际机构通用管理系统</span>
       </v-toolbar-title>
       <v-text-field
+        :value="filterKey"
+        :name="filterKey"
+        @input.native="setFilter($event)"
         flat
         solo-inverted
         prepend-icon="search"
@@ -112,7 +115,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { State, Mutation, Action, Getter } from "vuex-class";
 import RegisterDialog from "./components/Shared/RegisterDialog.vue";
+
+import * as types from "@/store/types";
+import { defaultUser } from "@/store/Model/BaseModel";
+const nsUser = { namespace: types.nsUser };
 
 @Component({
   components: {
@@ -125,6 +133,11 @@ export default class App extends Vue {
   drawer: any;
 
   @Prop() source: String;
+
+  @State("filterKey", nsUser)
+  filterKey!: string;
+  @Mutation(types.mSetFilter, nsUser)
+  setFilter: Function;
 
   navigate(to: string) {
     this.$router.push(to);

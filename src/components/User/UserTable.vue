@@ -21,7 +21,9 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
-        <td :key="header.text" :autocomplete="props.item[header.text]"
+        <td class="text-xs-left"
+            :key="header.text"
+            :autocomplete="props.item[header.text]"
             v-for="header in headers">
             {{ props.item[header.text] }}
         </td>
@@ -61,6 +63,7 @@ export default class UserLogin extends Vue {
   activeItem!: object;
   @State("items", nsUser)
   items: any[];
+  @State("filterKey") globalFilterKey: string;
   // Getters
   @Getter("itemFiltered", nsUser)
   itemFiltered: any[];

@@ -45,6 +45,9 @@ const mutations = {
     [types.mSetValue]: (state: State, payload: any) => {
         state.activeItem[payload.target.name] = payload.target.value;
     },
+    [types.mSetFilter]: (state: State, payload: any) => {
+        state.filterKey = payload.target.value;
+    },
     [types.mSetActive]: (state: State, payload: any) => {
         state.activeItem = payload;
     },
