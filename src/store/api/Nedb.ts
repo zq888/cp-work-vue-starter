@@ -6,7 +6,7 @@
 import path from "path";
 import fs from "fs";
 import Datastore from "nedb";
-import { collections } from "@/store/model/BaseModel";
+import { collections } from "@/store/Model/BaseModel";
 import { log } from "@/util";
 
 let userPath = "";

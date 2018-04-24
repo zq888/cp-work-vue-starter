@@ -1,6 +1,6 @@
 export const collections = ["user", "config", "document", "scheme", "test"];
 
-export const defaultUser: CPWork.IDiplomat = {
+export const defaultUser = {
   序号: "1",
   部门: "馆领导",
   姓名: "邢文聚",

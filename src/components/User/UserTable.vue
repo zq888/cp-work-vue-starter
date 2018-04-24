@@ -45,7 +45,7 @@ import { State, Mutation, Action, Getter } from "vuex-class";
 
 import * as types from "@/store/types";
 import UserInfo from "@/components/User/UserInfo.vue";
-import { defaultUser } from "@/store/model/BaseModel";
+import { defaultUser } from "@/store/Model/BaseModel";
 const nsUser = { namespace: types.nsUser };
 
 @Component({
@@ -60,7 +60,7 @@ export default class UserLogin extends Vue {
   editIndex: number = -1;
   // State
   @State("activeItem", nsUser)
-  activeItem!: object;
+  activeItem: object;
   @State("items", nsUser)
   items: any[];
   @State("filterKey") globalFilterKey: string;
