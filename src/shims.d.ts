@@ -23,14 +23,16 @@ declare namespace CPWork {
     filterKey?: string;
     sortKey?: string;
   }
+
   /**
-   * Payload for Base Module
+   * Payload for Base Module, only for IDiplomat as payload
    *
    * @export    IBasePayload
    * @interface IBasePayload
    */
   export interface IBasePayload {
-    [index: string]: string;
+    type: string;
+    payload: IDiplomat;
   }
 
   /**

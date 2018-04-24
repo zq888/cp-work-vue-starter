@@ -11,6 +11,9 @@ import { log } from "@/util";
 
 let userPath = "";
 
+// FIXME: CPWork.IDatabasePool as type
+// interface ICPPool extends IDatabasePool {[index: string]: Datastore;}
+// { type : Datastore}
 // Database pool in format [user -> user.db]
 let pool: any = {};
 
