@@ -28,7 +28,7 @@ module.exports = {
       }
     ],
     sidebar: {
-      "/zh/guide/electron/": ["", "one", "two"],
+      "/zh/guide/electron/": ["", "one", "two", "three", "four", "five"],
       "/zh/guide/vuex/": ["", "one", "two"],
       "/zh/guide/vue-router/": ["", "one", "two"],
       "/zh/guide/vue-cli/": ["", "one", "two"]
