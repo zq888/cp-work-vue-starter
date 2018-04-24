@@ -45,7 +45,7 @@ import { State, Mutation, Action, Getter } from "vuex-class";
 
 import * as types from "@/store/types";
 import UserInfo from "@/components/User/UserInfo.vue";
-import { defaultUser } from "@/store/Model/BaseModel";
+import { defaultUser } from "@/store/model/BaseModel";
 const nsUser = { namespace: types.nsUser };
 
 @Component({
