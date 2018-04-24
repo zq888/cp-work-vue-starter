@@ -1,6 +1,6 @@
 import Base from "./Base";
 
-import { defaultUser } from "@/store/model/BaseModel";
+import { defaultUser } from "@/store/Model/BaseModel";
 
 const state: CPWork.IBaseState = {
     name: "user",
