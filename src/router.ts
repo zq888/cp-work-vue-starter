@@ -28,6 +28,11 @@ export default new Router({
             component: User,
         },
         {
+            path: "/user/:page",
+            name: "user-page",
+            component: User,
+        },
+        {
             path: "/database",
             name: "database",
             component: Database,

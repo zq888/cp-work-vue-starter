@@ -40,7 +40,7 @@
             <v-list-tile
               v-for="(child, i) in item.children"
               :key="i"
-              @click="navigate(child.to)"
+              @click="navigate(child.to, child.route)"
             >
               <v-list-tile-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
@@ -139,8 +139,8 @@ export default class App extends Vue {
   @Mutation(types.mSetFilter, nsUser)
   setFilter: Function;
 
-  navigate(to: string) {
-    this.$router.push(to);
+  navigate(to: string, payload?: string) {
+    this.$router.push({ path: to });
   }
 
   constructor() {
@@ -149,7 +149,17 @@ export default class App extends Vue {
     this.drawer = null;
     this.items = [
       { icon: "help", text: "Welcome", to: "/" },
-      { icon: "contacts", text: "Contacts", to: "/user" },
+      {
+        icon: "contacts",
+        text: "Contacts",
+        "icon-alt": "keyboard_arrow_down",
+        children: [
+          { text: "Users", to: "/user/table" },
+          { text: "Cards", to: "/user/card" },
+          { text: "Prifile", to: "/user/profile" },
+          { text: "Grid", to: "/user/grid" }
+        ]
+      },
       { icon: "history", text: "Apollo", to: "/apollo" },
       { icon: "content_copy", text: "Duplicates", to: "/about" },
       {

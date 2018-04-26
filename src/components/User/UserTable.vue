@@ -51,7 +51,7 @@ const nsUser = { namespace: types.nsUser };
 @Component({
   components: { UserInfo }
 })
-export default class UserLogin extends Vue {
+export default class UserTable extends Vue {
   // Props
   dialog: boolean = false;
   editing: boolean = false;
