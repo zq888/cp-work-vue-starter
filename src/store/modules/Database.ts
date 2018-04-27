@@ -2,10 +2,9 @@ import Base from "./Base";
 
 import { collections } from "@/store/Model/BaseModel";
 
-
 const state: CPWork.IBaseState = {
-    name: "Database",
-    items: collections,
+    name: "db",
+    items: [],
     activeItem: {},
     filterKey: "",
     sortKey: "",

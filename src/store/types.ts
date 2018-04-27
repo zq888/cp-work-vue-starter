@@ -4,7 +4,8 @@ export const mCreate = "mutationCreate",
     mRead = "mutationRead",
     mSetValue = "mutationSetValue",
     mSetFilter = "mutationSetFilter",
-    mUnSetActive = "mutationUnSetActive",
+    mDbCreate = "mutationDbCreate",
+    mDbDelete = "mutationDbDelete",
     mSetActive = "mutationSetActive";
 
 export const aCreate = "actionCreate",

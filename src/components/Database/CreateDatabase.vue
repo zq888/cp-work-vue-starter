@@ -1,11 +1,11 @@
 <template>
   <v-stepper v-model="e1" height="800px">
     <v-stepper-header>
-      <v-stepper-step step="1" :complete="e1 > 1">step 1</v-stepper-step>
+      <v-stepper-step step="1" :complete="e1 > 1">1. Database Name</v-stepper-step>
       <v-divider></v-divider>
-      <v-stepper-step step="2" :complete="e1 > 2">step 2</v-stepper-step>
+      <v-stepper-step step="2" :complete="e1 > 2">2. Add fields</v-stepper-step>
       <v-divider></v-divider>
-      <v-stepper-step step="3">Name of step 3</v-stepper-step>
+      <v-stepper-step step="3">3. Finish</v-stepper-step>
     </v-stepper-header>
     <v-stepper-items>
       <v-stepper-content step="1">
@@ -20,7 +20,7 @@
       <v-stepper-content step="2">
         <v-card color="lighten-1" class="mb-5" height="500px">
           <v-form>
-            <v-text-field 
+            <v-text-field
             v-model="fieldName"
             @keyup.enter="addField({name: fieldName, value: 'value'})"
             ></v-text-field>
@@ -28,7 +28,7 @@
           <v-flex md6 sm12>
               <v-chip
               v-for="(f, i) in fields"
-              :key="i" 
+              :key="i"
               >{{f.name}}-{{f.value}}
               </v-chip>
           </v-flex>
@@ -39,10 +39,10 @@
       <v-stepper-content step="3">
         <v-card color="lighten-1" class="mb-5" height="500px">
           <v-flex md6 sm12>
-             <v-text-field v-for="(item, index) in items" :key="index" :value="item"></v-text-field>
+             <v-text-field v-for="(item, index) in items" :key="index" :value="item.name"></v-text-field>
           </v-flex>
         </v-card>
-        <v-btn color="primary" @click.native="addItem(dbName)">Finish</v-btn>
+        <v-btn color="primary" @click.native="addDatabase(dbName)">Finish</v-btn>
         <v-btn flat>Cancel</v-btn>
       </v-stepper-content>
     </v-stepper-items>
@@ -91,6 +91,10 @@ export default class CreateDatabaseSteper extends Vue {
   setActive: Function;
   @Mutation(types.mSetValue, nsDatabase)
   setValue: Function;
+  @Mutation(types.mDbCreate, nsDatabase)
+  dbCreate: Function;
+  @Mutation(types.mDbDelete, nsDatabase)
+  dbDelete: Function;
   // Actions
   @Action(types.aCreate, nsDatabase)
   createItem: Function;
@@ -115,8 +119,14 @@ export default class CreateDatabaseSteper extends Vue {
     this.fields.push(newField);
   }
 
-  addItem(item: any) {
-    this.createItem(item);
+  addDatabase(item: any) {
+    this.dbCreate(item); // db name is test
+    this.createItem({ name: item }); // insert test in db
+  }
+
+  deleteDatabase(item: any) {
+    this.dbDelete(item); // db name is test
+    this.deleteItem({ name: item }); // insert test in db
   }
 }
 </script>

@@ -27,7 +27,7 @@ export default new Vuex.Store({
     plugins,
     modules: {
         User,
-        Database
+        Database,
     },
     getters: {
         mytitle: state => state.title,

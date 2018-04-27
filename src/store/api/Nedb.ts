@@ -27,6 +27,13 @@ export function dbInit() {
     }
 }
 
+export function dbInsertDefault() {
+    removeItem(dbOpen(pool["db"]), {}).then(n => log.err(n));
+    for (let collection of collections) {
+        addItem(dbOpen(pool["db"]), { name: collection });
+    }
+}
+
 export function dbCreate(collection: string) {
     pool[collection] = new Datastore({
         autoload: true,

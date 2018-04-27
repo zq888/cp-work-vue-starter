@@ -49,22 +49,37 @@ const mutations = {
     [types.mSetActive]: (state: any, payload: any) => {
         state.activeItem = payload;
     },
+    [types.mDbCreate]: (state: any, payload: any) => {
+        dbCreate(payload);
+    },
+    [types.mDbDelete]: (state: any, payload: any) => {
+        dbRemove(payload);
+    },
 };
 
 const actions = {
-    [types.aCreate]: async (ctx: ActionContext<CPWork.IBaseState, any>, payload: any) => {
+    [types.aCreate]: async (
+        ctx: ActionContext<CPWork.IBaseState, any>,
+        payload: any,
+    ) => {
         // async and persistence actions
         let newDoc = await addItem(dbOpen(ctx.state.name), payload);
         ctx.commit("mutationCreate", newDoc);
     },
-    [types.aDelete]: async (ctx: ActionContext<CPWork.IBaseState, any>, payload: any) => {
+    [types.aDelete]: async (
+        ctx: ActionContext<CPWork.IBaseState, any>,
+        payload: any,
+    ) => {
         // async and persistence actions
         let n = await removeItem(dbOpen(ctx.state.name), {
             _id: payload._id,
         });
         if (n !== null) ctx.commit("mutationDelete", payload);
     },
-    [types.mUpdate]: async (ctx: ActionContext<CPWork.IBaseState, any>, payload: any) => {
+    [types.mUpdate]: async (
+        ctx: ActionContext<CPWork.IBaseState, any>,
+        payload: any,
+    ) => {
         // async and persistence actions
         let { _id, ...cleanPayload } = payload;
         let query = {
@@ -73,7 +88,10 @@ const actions = {
         let n = await updateItem(dbOpen(ctx.state.name), query, cleanPayload);
         if (n !== null) ctx.commit("mutationUpdate", payload);
     },
-    [types.mRead]: async (ctx: ActionContext<CPWork.IBaseState, any>, payload: any) => {
+    [types.mRead]: async (
+        ctx: ActionContext<CPWork.IBaseState, any>,
+        payload: any,
+    ) => {
         // async and persistence actions
         let db = dbOpen(ctx.state.name);
         let docs = await findItem(db, {});
