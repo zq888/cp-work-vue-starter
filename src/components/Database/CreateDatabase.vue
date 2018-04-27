@@ -122,6 +122,7 @@ export default class CreateDatabaseSteper extends Vue {
   addDatabase(item: any) {
     this.dbCreate(item); // db name is test
     this.createItem({ name: item }); // insert test in db
+    this.e1 = 1;
   }
 
   deleteDatabase(item: any) {
