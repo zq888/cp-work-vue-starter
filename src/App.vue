@@ -83,17 +83,17 @@
         flat
         solo-inverted
         prepend-icon="search"
-        label="Search"
+        label="查找"
         class="hidden-sm-and-down"
       ></v-text-field>
       <v-spacer></v-spacer>
-      <v-btn icon>
+      <v-btn icon @click="navigate('/about')">
         <v-icon>apps</v-icon>
       </v-btn>
-      <v-btn icon>
+      <v-btn icon @click="navigate('/about')">
         <v-icon>notifications</v-icon>
       </v-btn>
-      <v-btn icon large>
+      <v-btn icon large @click="navigate('/')">
         <v-avatar size="32px" tile>
           <img
             src="https://vuetifyjs.com/static/doc-images/logo.svg"
@@ -148,50 +148,48 @@ export default class App extends Vue {
 
     this.drawer = null;
     this.items = [
-      { icon: "help", text: "Welcome", to: "/" },
+      { icon: "phonelink", text: "欢迎", to: "/" },
       {
         icon: "contacts",
-        text: "Contacts",
-        "icon-alt": "keyboard_arrow_down",
+        text: "人员",
+        "icon-alt": "contacts",
         children: [
-          { text: "Users", to: "/user/table" },
-          { text: "Cards", to: "/user/card" },
-          { text: "Prifile", to: "/user/profile" },
-          { text: "Grid", to: "/user/grid" }
+          { icon: "add", text: "列表", to: "/user/table" },
+          { icon: "add", text: "卡片", to: "/user/card" },
+          { icon: "add", text: "简历", to: "/user/profile" },
+          { icon: "add", text: "设置", to: "/user/grid" }
         ]
       },
-      { icon: "history", text: "Apollo", to: "/apollo" },
-      { icon: "content_copy", text: "Duplicates", to: "/about" },
+      {
+        icon: "keyboard",
+        text: "文档",
+        "icon-alt": "keyboard",
+        children: [
+          { icon: "add", text: "列表", to: "/document/table" },
+          { icon: "add", text: "卡片", to: "/document/card" },
+          { icon: "add", text: "简历", to: "/document/profile" },
+          { icon: "add", text: "设置", to: "/document/grid" }
+        ]
+      },
+      // { icon: "history", text: "Apollo", to: "/apollo" },
+      // { icon: "content_copy", text: "Duplicates", to: "/about" },
       {
         icon: "keyboard_arrow_up",
         "icon-alt": "keyboard_arrow_down",
-        text: "Database",
+        text: "数据库",
         to: "/database",
         model: true,
         children: [
-          { icon: "add", text: "Create", to: "/database" },
-          { icon: "add", text: "Manage", to: "/database/manage" },
-          { icon: "add", text: "Import/Export", to: "/database/export" }
+          { icon: "add", text: "创建", to: "/database" },
+          { icon: "add", text: "管理", to: "/database/manage" },
+          { icon: "add", text: "导入/导出", to: "/database/export" }
         ]
       },
-      {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
-        text: "More",
-        model: false,
-        children: [
-          { text: "Import", to: "/about" },
-          { text: "Export", to: "/about" },
-          { text: "Print", to: "/about" },
-          { text: "Undo changes", to: "/about" },
-          { text: "Other contacts", to: "/about" }
-        ]
-      },
-      { icon: "settings", text: "Settings", to: "/about" },
-      { icon: "chat_bubble", text: "Send feedback", to: "/about" },
-      { icon: "help", text: "Help", to: "/help" },
-      { icon: "phonelink", text: "App downloads", to: "/about" },
-      { icon: "keyboard", text: "Go to the old version", to: "/about" }
+      { icon: "settings", text: "设置", to: "/about" },
+      { icon: "chat_bubble", text: "反馈", to: "/about" },
+      { icon: "help", text: "帮助", to: "/help" },
+      { icon: "phonelink", text: "下载应用", to: "/about" }
+      // { icon: "keyboard", text: "Go to the old version", to: "/about" }
     ];
   }
 }

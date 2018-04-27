@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{$route.params.page}}
+    <!-- {{$route.params.page}} -->
     <UserTable v-if="$route.params.page === 'table'" />
     <UserCard v-if="$route.params.page === 'card'" />
     <UserProfile v-if="$route.params.page === 'profile'" />

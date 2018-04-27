@@ -1,10 +1,10 @@
 <template>
   <div
     id="e3"
-    style="max-width: 400px; margin: auto;"
+    style="max-width: 800px; margin: auto;"
     class="grey lighten-3"
   >
-    <v-toolbar color="pink">
+    <v-toolbar color="blue">
       <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-toolbar-title class="white--text">{{$route.params.page}}</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -21,15 +21,20 @@
         <v-layout row wrap>
           <v-flex            
           :key= "item._id"
-            v-for="item in items" xs12>
+            v-for="item in itemFiltered" xs12>
             <v-card 
-            color="blue-grey darken-2" class="white--text">
+            color="darken-2" class="black--text">
               <v-card-title primary-title>
+                <v-avatar>
+                  <img src="https://vuetifyjs.com/static/doc-images/john.jpg" alt="John">
+                </v-avatar>
                 <div class="headline">{{item["姓名"]}}</div>
-                <div>{{item["学历"]}}</div>
               </v-card-title>
+              <v-card-text class="grey--text">{{item["学历"]}}</v-card-text>
               <v-card-actions>
-                <v-btn flat dark @click="navigate(item._id)">Info</v-btn>
+                <v-avatar class="indigo" @click="navigate(item._id)">
+                  <v-icon dark>account_circle</v-icon>
+                </v-avatar>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -73,6 +78,8 @@ export default class UserCard extends Vue {
   setActive: Function;
   @Mutation(types.mSetValue, nsUser)
   setValue: Function;
+  @Mutation(types.mSetFilter, nsUser)
+  setFilter: Function;
   // Actions
   @Action(types.aCreate, nsUser)
   createItem: Function;
@@ -85,22 +92,7 @@ export default class UserCard extends Vue {
     super();
     this.dialog = false;
     this.editing = false;
-    this.headers = [
-      /* {
-         *   text: "姓名",
-         *   align: "left",
-         *   value: "姓名",
-         * },
-         * { text: "部门", value: "部门" },
-         * { text: "性别", value: "性别" },
-         * { text: "民族", value: "民族" },
-         * { text: "学历", value: "学历" },
-         * { text: "外语语种", value: "外语语种" },
-         * { text: "对内身份", value: "对内身份" },
-         * { text: "对外身份", value: "对外身份" },
-         * { text: "行政级别", value: "行政级别" },
-         * { text: "担任工作", value: "担任工作" },*/
-    ];
+    this.headers = [];
   }
 
   mounted() {
