@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <v-layout row wrap class="home">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  </v-layout>
 </template>
 
 <script>

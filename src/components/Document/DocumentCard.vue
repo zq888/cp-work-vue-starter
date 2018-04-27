@@ -28,9 +28,9 @@
                 <v-avatar>
                   <img src="https://vuetifyjs.com/static/doc-images/john.jpg" alt="John">
                 </v-avatar>
-                <div class="headline">{{item["姓名"]}}</div>
+                <div class="headline">{{item["主送机关"]}}</div>
               </v-card-title>
-              <v-card-text class="grey--text">{{item["学历"]}}</v-card-text>
+              <v-card-text class="grey--text">{{item["事由"]}}</v-card-text>
               <v-card-actions>
                 <v-avatar class="purple lighten-2" @click="navigate(item._id)">
                   <v-icon dark>account_circle</v-icon>
@@ -48,44 +48,44 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { State, Mutation, Action, Getter } from "vuex-class";
 
 import * as types from "@/store/types";
-import UserInfo from "@/components/User/UserInfo.vue";
-import { defaultUser } from "@/store/Model/BaseModel";
-const nsUser = { namespace: types.nsUser };
+import DocumentInfo from "@/components/Document/DocumentInfo.vue";
+import { defaultDocument } from "@/store/Model/BaseModel";
+const nsDocument = { namespace: types.nsDocument };
 
 @Component({
-  components: { UserInfo }
+  components: { DocumentInfo }
 })
-export default class UserCard extends Vue {
+export default class DocumentCard extends Vue {
   // Props
   dialog: boolean = false;
   editing: boolean = false;
-  formTitle: string = "人员信息";
+  formTitle: string = "文档信息";
   headers: any[];
   editIndex: number = -1;
   // State
-  @State("activeItem", nsUser)
+  @State("activeItem", nsDocument)
   activeItem: object;
-  @State("items", nsUser)
+  @State("items", nsDocument)
   items: any[];
   @State("filterKey") globalFilterKey: string;
   // Getters
-  @Getter("itemFiltered", nsUser)
+  @Getter("itemFiltered", nsDocument)
   itemFiltered: any[];
-  @Getter("itemKeys", nsUser)
+  @Getter("itemKeys", nsDocument)
   itemKeys: any[];
   // Mutations
-  @Mutation(types.mSetActive, nsUser)
+  @Mutation(types.mSetActive, nsDocument)
   setActive: Function;
-  @Mutation(types.mSetValue, nsUser)
+  @Mutation(types.mSetValue, nsDocument)
   setValue: Function;
-  @Mutation(types.mSetFilter, nsUser)
+  @Mutation(types.mSetFilter, nsDocument)
   setFilter: Function;
   // Actions
-  @Action(types.aCreate, nsUser)
+  @Action(types.aCreate, nsDocument)
   createItem: Function;
-  @Action(types.aDelete, nsUser)
+  @Action(types.aDelete, nsDocument)
   deleteItem: Function;
-  @Action(types.aUpdate, nsUser)
+  @Action(types.aUpdate, nsDocument)
   updateItem: Function;
 
   constructor() {
@@ -118,7 +118,7 @@ export default class UserCard extends Vue {
 
   addItem() {
     this.editing = false;
-    this.setActive(defaultUser);
+    this.setActive(defaultDocument);
     this.dialog = true;
   }
 }

@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <v-layout row wrap>
     <RegisterDialog />
-  </div>
+  </v-layout>
 </template>
 
 <script>

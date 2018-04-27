@@ -1,5 +1,9 @@
-import { FirebasePlugin } from "./fireBasePlugin";
+import { PersistencePlugin } from "./fireBasePlugin";
 
-const plugins: any[] = [FirebasePlugin({namespace: "User"})];
+const plugins: any[] = [
+  PersistencePlugin({ namespace: "User" }),
+  PersistencePlugin({ namespace: "Document" }),
+  PersistencePlugin({ namespace: "Database" })
+];
 
 export default plugins;

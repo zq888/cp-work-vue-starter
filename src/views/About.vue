@@ -1,9 +1,9 @@
 <template>
-  <v-container>
+  <v-layout row wrap>
     <v-carousel>
       <v-carousel-item v-for="(item,i) in items" :src="item.src" :key="i"></v-carousel-item>
     </v-carousel>
-  </v-container>
+  </v-layout>
 </template>
 
 <script lang="ts">

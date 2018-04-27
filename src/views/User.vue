@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <v-layout row wrap>
+    <v-flex xs10 offset-xs1>
     <!-- {{$route.params.page}} -->
     <UserTable v-if="$route.params.page === 'table'" />
     <UserCard v-if="$route.params.page === 'card'" />
     <UserProfile v-if="$route.params.page === 'profile'" />
     <UserGrid v-if="$route.params.page === 'grid'" />
-  </div>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script lang="ts">

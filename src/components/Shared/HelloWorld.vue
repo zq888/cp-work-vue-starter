@@ -1,5 +1,5 @@
 <template>
-  <v-jumbotron color="grey lighten-2">
+  <v-jumbotron color="purple lighten-5">
     <v-container fill-height>
       <v-layout align-center>
         <v-flex>

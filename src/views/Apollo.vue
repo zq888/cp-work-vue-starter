@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <v-layout row wrap>
     <ApolloExample />
-  </div>
+  </v-layout>
 </template>
 
 <script>
