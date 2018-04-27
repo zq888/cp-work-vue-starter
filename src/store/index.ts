@@ -4,6 +4,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 import User from "./modules/User";
+import Database from "./modules/Database";
 import plugins from "./plugin";
 
 import { dbInit } from "@/store/api/Nedb";
@@ -26,6 +27,7 @@ export default new Vuex.Store({
     plugins,
     modules: {
         User,
+        Database
     },
     getters: {
         mytitle: state => state.title,
