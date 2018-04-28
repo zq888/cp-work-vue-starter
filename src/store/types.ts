@@ -1,18 +1,20 @@
 export const mCreate = "mutationCreate",
-    mDelete = "mutationDelete",
-    mUpdate = "mutationUpdate",
-    mRead = "mutationRead",
-    mSetValue = "mutationSetValue",
-    mSetFilter = "mutationSetFilter",
-    mDbCreate = "mutationDbCreate",
-    mDbDelete = "mutationDbDelete",
-    mSetActive = "mutationSetActive";
+  mDelete = "mutationDelete",
+  mUpdate = "mutationUpdate",
+  mRead = "mutationRead",
+  mReadOne = "mutationReadOne",
+  mSetValue = "mutationSetValue",
+  mSetFilter = "mutationSetFilter",
+  mDbCreate = "mutationDbCreate",
+  mDbDelete = "mutationDbDelete",
+  mSetActive = "mutationSetActive";
 
 export const aCreate = "actionCreate",
-    aDelete = "actionDelete",
-    aUpdate = "actionUpdate",
-    aRead = "actionRead",
-    aSet = "actionSet";
+  aDelete = "actionDelete",
+  aUpdate = "actionUpdate",
+  aRead = "actionRead",
+  aReadOne = "actionReadOne",
+  aSet = "actionSet";
 
 export const nsDatabase = "Database";
 export const nsUser = "User";

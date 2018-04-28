@@ -1,3 +1,5 @@
+import { AsyncHook } from "async_hooks";
+
 declare module "*.vue" {
   import Vue from "vue";
   export default Vue;
@@ -62,6 +64,23 @@ declare namespace CPWork {
   export interface IDatabasePool {
     [index: string]: any;
   }
+
+  export interface IVuexAdaptor {
+    userPath: string;
+    pool: any;
+    collections: string[];
+    current: string;
+    dbInit(): void;
+    dbCreate(collection: string): void;
+    dbRemove(collection: string): void;
+    dbOpen(collection: string): void;
+    dbSetCurrent(collection: string): void;
+    findItem(db: any, query: any): void;
+    addItem(db: any, cleanPayload: any): void;
+    updateItem(db: any, query: any, cleanPayload: any): void;
+    removeItem(db: any, query: any): void;
+  }
+
   /**
    * Interface for Diplomat Model, extends IUser
    *

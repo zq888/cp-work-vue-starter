@@ -46,9 +46,9 @@ export const PersistencePlugin = (options: any) => {
   return (store: any) => {
     let namespace = options.namespace || "";
     // Read data from Nedb
-    store.dispatch(`${namespace}/${types.mRead}`, { name: "xing" });
+    store.dispatch(`${namespace}/${types.aRead}`, {});
     store.subscribe((mutations: any) => {
-      log.suc("Plugin enabled!");
+      log.suc("Persistence Plugin enabled!");
     });
   };
 };
