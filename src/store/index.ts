@@ -8,7 +8,7 @@ import Database from "./modules/Database";
 import Document from "./modules/Document";
 import plugins from "./plugin";
 
-import { dbInit } from "@/store/api/Nedb";
+import { dbInit } from "@/store/api/NedbSDK";
 dbInit();
 
 import Base from "@/store/modules/Base";

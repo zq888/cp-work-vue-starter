@@ -13,7 +13,7 @@ import {
   findItem,
   updateItem,
   removeItem
-} from "@/store/api/Nedb";
+} from "@/store/api/NedbSDK";
 
 /**
  * Dispatch辅助函数，带有类型智能提示

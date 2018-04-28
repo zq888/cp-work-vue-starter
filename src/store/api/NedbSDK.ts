@@ -1,15 +1,28 @@
-/*!
- * Vue.js v2.2.6
- * (c) 2014-2017 Evan You
- * Released under the MIT License.
+/**
+ * CopyRight: Xing wenju
+ * Author: Xing wenju
+ * Email: linuxing3@qq.com
+ * Git: https://github.org/linuxing3
+ * License: MIT
+ * Project:  cp-work-vue-starter
+ * Language: javascript/vue
+ * Description:  Description is here
+ *
+ * 本模块实现了nedb JavaScript SDK的部分功能
+ *
+ * @providesModule nedbSDK
  */
+
 import path from "path";
 import fs from "fs";
 import Datastore from "nedb";
 import { collections, user } from "@/store/Model/BaseModel";
 import { log } from "@/util";
 
-let userPath = "";
+
+/////////////////////////////////////////////////////////////////////////
+// Interface
+/////////////////////////////////////////////////////////////////////////
 
 /**
  * CPWork.IDatabasePool as type
@@ -36,7 +49,12 @@ export interface IVuexNedbAdaptor extends CPWork.IVuexAdaptor {
   removeItem(db: Datastore, query: any): any;
 }
 
-////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+// Module 
+/////////////////////////////////////////////////////////////////////////
+
+let userPath = "";
+
 let pool: INedbDatabasePool = {};
 
 /**
@@ -167,7 +185,9 @@ export const removeItem = async (db: Datastore, query: any) => {
   });
 };
 
-///////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+// Class 
+/////////////////////////////////////////////////////////////////////////
 
 /**
  * VuexNedbAdaptor类
