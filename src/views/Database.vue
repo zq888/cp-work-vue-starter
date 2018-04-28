@@ -1,6 +1,8 @@
 <template>
   <v-layout row-wrap>
-    <CreateDatabase />
+    <v-flex>
+      <CreateDatabase />
+    </v-flex>
   </v-layout>
 </template>
 

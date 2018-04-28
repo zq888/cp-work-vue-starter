@@ -30,7 +30,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { State, Action, Getter } from "vuex-class";
 
-import netlify from "netlify-auth-providers";
+const Netlify = require("netlify-auth-providers");
 
 import * as types from "@/store/types";
 
@@ -74,8 +74,8 @@ export default class UserLogin extends Vue {
   mounted() {}
 
   submit() {
-    this.createUser({ name: this.name, email: this.email });
-    var authenticator = new netlify.default({});
+    // this.createUser({ name: this.name, email: this.email });
+    var authenticator = new Netlify.default({});
     authenticator.authenticate({ provider: "github", scope: "user" }, function(
       err: any,
       data: any

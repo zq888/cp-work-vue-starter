@@ -1,6 +1,8 @@
 <template>
   <v-layout row wrap class="home">
+    <v-flex>
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    </v-flex>
   </v-layout>
 </template>
 

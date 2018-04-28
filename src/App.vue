@@ -93,7 +93,7 @@
       <v-btn icon @click="navigate('/about')">
         <v-icon>notifications</v-icon>
       </v-btn>
-      <v-btn icon large @click="navigate('/')">
+      <v-btn icon large @click="navigate('/login')">
         <v-avatar size="32px" tile>
           <img
             src="https://vuetifyjs.com/static/doc-images/logo.svg"
