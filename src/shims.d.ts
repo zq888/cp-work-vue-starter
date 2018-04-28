@@ -1,5 +1,3 @@
-import { AsyncHook } from "async_hooks";
-
 declare module "*.vue" {
   import Vue from "vue";
   export default Vue;
@@ -70,15 +68,15 @@ declare namespace CPWork {
     pool: any;
     collections: string[];
     current: string;
-    dbInit(): void;
-    dbCreate(collection: string): void;
-    dbRemove(collection: string): void;
-    dbOpen(collection: string): void;
-    dbSetCurrent(collection: string): void;
-    findItem(db: any, query: any): void;
-    addItem(db: any, cleanPayload: any): void;
-    updateItem(db: any, query: any, cleanPayload: any): void;
-    removeItem(db: any, query: any): void;
+    dbInit(): any;
+    dbCreate(collection: string): any;
+    dbRemove(collection: string): any;
+    dbOpen(collection: string): any;
+    dbSetCurrent(collection: string): any;
+    findItem(db: any, query: any, table?: any): any;
+    addItem(db: any, cleanPayload: any, table?: any): any;
+    updateItem(db: any, query: any, cleanPayload: any, table?: any): any;
+    removeItem(db: any, query: any, table?: any): any;
   }
 
   /**

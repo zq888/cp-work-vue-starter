@@ -25,15 +25,15 @@ export interface IVuexNedbAdaptor extends CPWork.IVuexAdaptor {
   pool: INedbDatabasePool;
   collections: string[];
   current: string;
-  dbInit(): void;
-  dbCreate(collection: string): void;
-  dbRemove(collection: string): void;
-  dbOpen(collection: string): void;
-  dbSetCurrent(collection: string): void;
-  findItem(db: Datastore, query: any): void;
-  addItem(db: Datastore, cleanPayload: any): void;
-  updateItem(db: Datastore, query: any, cleanPayload: any): void;
-  removeItem(db: Datastore, query: any): void;
+  dbInit(): any;
+  dbCreate(collection: string): any;
+  dbRemove(collection: string): any;
+  dbOpen(collection: string): any;
+  dbSetCurrent(collection: string): any;
+  findItem(db: Datastore, query: any): any;
+  addItem(db: Datastore, cleanPayload: any): any;
+  updateItem(db: Datastore, query: any, cleanPayload: any): any;
+  removeItem(db: Datastore, query: any): any;
 }
 
 ////////////////////////////////////////////////////////////////////
