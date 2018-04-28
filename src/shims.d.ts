@@ -3,6 +3,8 @@ declare module "*.vue" {
   export default Vue;
 }
 
+declare module "netlify-auth-providers";
+
 declare namespace CPWork {
   /**
    * User Interface

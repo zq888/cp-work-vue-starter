@@ -25,3 +25,6 @@ yarn.lock
 package-lock.json
 live/
 .tern-port
+
+# Compiled Lambda functions
+/lambda/
