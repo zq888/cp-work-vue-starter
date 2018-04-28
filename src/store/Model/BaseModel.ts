@@ -1,6 +1,6 @@
 export const collections = ["db", "config", "document", "user"];
 
-export const defaultUser = {
+export const defaultUser: CPWork.IDiplomat = {
   序号: "1",
   部门: "馆领导",
   姓名: "邢文聚",
@@ -22,7 +22,7 @@ export const defaultUser = {
   备注: "无"
 };
 
-export const defaultDocument = {
+export const defaultDocument: CPWork.IDiplomaticDocument = {
   序号: "1",
   文种: "委参发",
   密级: "内部",

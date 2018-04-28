@@ -19,6 +19,8 @@ interface fbUpdates {
   [index: string]: any;
 }
 
+interface IFireDatabase extends firebase.database.Database {}
+
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyDS_pnYl8I9oHJ1DCqiuqkwFJm3WymI4bg",
@@ -93,8 +95,8 @@ export async function logonWithEmail(email: string, password: string) {
     resolve(user);
   });
 }
-/*
- * Methods exported as API
+/**
+ * Firebase Methods exported as API
  * set()	将数据写入或替换到定义的路径。
  * push()	添加到数据列表。Firebase 均会生成唯一ID
  * update()	更新定义的路径中的部分键，而不替换所有数据。
@@ -115,7 +117,11 @@ export async function logonWithEmail(email: string, password: string) {
  * create a new key
  * create a new value
  */
-export async function setDataInTable(firebaseDb: any, table: any, data: any) {
+export async function setDataInTable(
+  firebaseDb: IFireDatabase,
+  table: string,
+  data: any
+) {
   // data = {...props}
   // data = {name: ,age: }
   console.log(data);
@@ -134,26 +140,44 @@ export async function setDataInTable(firebaseDb: any, table: any, data: any) {
  * find the key
  * update the key with new value
  */
-export function updateDataInTable(firebaseDb: any, table: any, data: any) {
+export async function updateDataInTable(
+  firebaseDb: any,
+  table: any,
+  data: any
+) {
   // data = {id:, name:, age:,}
   // read will return {key: 12345, value: {name:, age:,}
   let updates: fbUpdates = {};
   updates[table + "/" + data.uniKey] = data;
-  firebaseDb.ref().update(updates);
+  let snapshot = await firebaseDb.ref().update(updates);
+  return new Promise((resolve, reject) => {
+    resolve(snapshot);
+  });
 }
 
 /*
  * find the key
  * remove value
  */
-export function deleteDataInTable(firebaseDb: any, table: any, key: any) {
-  firebaseDb.ref(table + "/" + key).remove();
+export async function deleteDataInTable(
+  firebaseDb: IFireDatabase,
+  table: string,
+  key: any
+) {
+  let snapshot = await firebaseDb.ref(table + "/" + key).remove();
+  return new Promise((resolve, reject) => {
+    resolve(snapshot);
+  });
 }
 
 /*
  * async function, callback must be info
  */
-export async function readDataInTable(firebaseDb: any, table: any, key: any) {
+export async function readDataInTable(
+  firebaseDb: IFireDatabase,
+  table: string,
+  key: any
+) {
   // using key to read will keep consistency of set and update
   // return {key: 12345, value: {name:, age:,}
   let snapshot = await firebaseDb.ref(table + "/" + key).once("value");
@@ -164,32 +188,43 @@ export async function readDataInTable(firebaseDb: any, table: any, key: any) {
 /*
  * async function
  */
-export async function readTable(firebaseDb: any, table: any) {
+export async function readTable(firebaseDb: IFireDatabase, table: string) {
   // using key to read will keep consistency of set and update
   // return {key: 12345, value: {name:, age:,}
   let snapshot = await firebaseDb.ref(table).once("value");
-  return snapshot;
+  return new Promise((resolve, reject) => {
+    resolve(snapshot);
+  });
 }
 
-export async function monitorWholeTable(firebaseDb: any, table: any) {
-  let tableRef = firebaseDb
+export async function monitorWholeTable(
+  firebaseDb: IFireDatabase,
+  table: string
+) {
+  let tableRef = await firebaseDb.ref(table).on("value", () => {}, null, null);
+  return new Promise((resolve, reject) => {
+    resolve(tableRef);
+  });
+}
+
+export async function monitorTable(firebaseDb: IFireDatabase, table: string) {
+  let addedData = await firebaseDb
     .ref(table)
-    .tableRef.on("value", function(snap: any) {
-      return snap.val();
-    });
-}
+    .on("child_added", () => {}, null, null);
 
-export function monitorTable(firebaseDb: any, table: any) {
-  let tableRef = firebaseDb.ref(table);
-  tableRef.on("child_added", function(data: any) {
-    //return data.key;
-    return data;
-  });
-  tableRef.on("child_changed", function(data: any) {
-    //return data.key;
-    return data;
-  });
-  tableRef.on("child_removed", function(data: any) {
-    return data;
+  let changedData = await firebaseDb
+    .ref(table)
+    .on("child_changed", () => {}, null, null);
+
+  let removedData = await firebaseDb
+    .ref(table)
+    .on("child_removed", () => {}, null, null);
+
+  return new Promise((resolve, reject) => {
+    resolve({
+      addedData,
+      changedData,
+      removedData
+    });
   });
 }

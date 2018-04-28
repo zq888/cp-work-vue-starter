@@ -1,12 +1,10 @@
 <template>
-  <v-container fluid grid-list-md>
     <v-layout row wrap>
       <v-flex>
         <DocumentCard v-if="$route.params.page === 'card'"/>
         <DocumentTable v-if="$route.params.page === 'table'"/>
       </v-flex>
     </v-layout>
-  </v-container>
 </template>
 
 <script lang="ts">
