@@ -173,7 +173,7 @@ export const removeItem = async (db: Datastore, query: any) => {
  * VuexNedbAdaptor类
  * Vuex使用Nedb作为后台的接口
  */
-class VuexNedbAdaptor implements IVuexNedbAdaptor {
+export default class VuexNedbAdaptor implements IVuexNedbAdaptor {
   userPath: string;
   pool: INedbDatabasePool;
   collections: string[];
