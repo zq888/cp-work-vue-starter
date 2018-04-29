@@ -22,8 +22,8 @@
       required
     ></v-checkbox>
 
-    <v-btn @click="submit">submit</v-btn>
-    <v-btn @click="clear">clear</v-btn>
+    <v-btn @click="netlifyLogin">Netlify Login</v-btn>
+    <v-btn @click="firelogin">Firebase Login</v-btn>
   </form>
 </template>
 <script lang="ts">
@@ -31,6 +31,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { State, Action, Getter } from "vuex-class";
 
 const Netlify = require("netlify-auth-providers");
+import clsFirebase, { config } from "@/store/api/firebaseSDK";
 
 import * as types from "@/store/types";
 
@@ -73,7 +74,7 @@ export default class UserLogin extends Vue {
   }
   mounted() {}
 
-  submit() {
+  netlifyLogin() {
     // this.createUser({ name: this.name, email: this.email });
     var authenticator = new Netlify.default({});
     authenticator.authenticate({ provider: "github", scope: "user" }, function(
@@ -87,7 +88,12 @@ export default class UserLogin extends Vue {
     });
   }
 
-  clear() {
+  fireLogin() {
+    const fb = new clsFirebase("", ["user"], config);
+    console.log(fb);
+  }
+
+  clearFields() {
     this.name = "";
     this.email = "";
     this.select = null;

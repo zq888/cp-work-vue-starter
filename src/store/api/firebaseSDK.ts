@@ -63,7 +63,7 @@ export interface IVuexFirebaseAdaptor extends CPWork.IVuexAdaptor {
 /////////////////////////////////////////////////////////////////////////
 
 // Initialize Firebase
-var config = {
+export const config = {
   apiKey: "AIzaSyDS_pnYl8I9oHJ1DCqiuqkwFJm3WymI4bg",
   authDomain: "cp-work.firebaseapp.com",
   databaseURL: "https://cp-work.firebaseio.com",
@@ -315,9 +315,9 @@ export default class clsFirebase implements IVuexFirebaseAdaptor {
   }
 
   /*
-   * find the key
-   * update the key with new value
-   */
+     * find the key
+     * update the key with new value
+     */
   async updateItem(db: IFireDatabase, cleanPayload: any, table: string) {
     // data = {id:, name:, age:,}
     // read will return {key: 12345, value: {name:, age:,}
@@ -330,9 +330,9 @@ export default class clsFirebase implements IVuexFirebaseAdaptor {
   }
 
   /*
-   * find the key
-   * remove value
-   */
+     * find the key
+     * remove value
+     */
   async removeItem(db: IFireDatabase, query: any, table: string) {
     if (query !== undefined) table = table + "/" + query.uniKey;
     let snapshot = await firebaseDb.ref(table + "/" + query.uniKey).remove();
@@ -342,8 +342,8 @@ export default class clsFirebase implements IVuexFirebaseAdaptor {
   }
 
   /*
-   * async function
-   */
+     * async function
+     */
   async findItem(db: IFireDatabase, query: any, table: string) {
     // using key to read will keep consistency of set and update
     // return {key: 12345, value: {name:, age:,}
