@@ -31,7 +31,6 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { State, Action, Getter } from "vuex-class";
 
 const Netlify = require("netlify-auth-providers");
-import clsFirebase, { config } from "@/store/api/firebaseSDK";
 
 import * as types from "@/store/types";
 

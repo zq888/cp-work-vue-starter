@@ -203,7 +203,6 @@ export class VuexNedbAdaptor implements IVuexNedbAdaptor {
     this.userPath = userPath;
     this.pool = {};
     this.current = "";
-    this.dbInit();
   }
 
   dbInit() {
@@ -238,14 +237,14 @@ export class VuexNedbAdaptor implements IVuexNedbAdaptor {
   }
 
   /**
-       * Database table operation Module
-       * /
+         * Database table operation Module
+         * /
 
-       /**
-       * 通过查询语句，获取数据，返回一个Promise<数据[]>
-       * @param db Nedb Datastore
-       * @param query MongoDB-style query
-       */
+         /**
+         * 通过查询语句，获取数据，返回一个Promise<数据[]>
+         * @param db Nedb Datastore
+         * @param query MongoDB-style query
+         */
   findItem = (db: Datastore, query: any) => {
     if (db === undefined || query === undefined) return;
     return new Promise((resolve, reject) => {

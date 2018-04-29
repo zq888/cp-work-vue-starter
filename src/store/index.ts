@@ -3,13 +3,20 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
+import fb from "@/store/api/firebaseSDK";
+fb.dbInit();
+Vue.prototype.$fb = fb;
+
+import { dbInit } from "@/store/api/NedbSDK";
+dbInit();
+// import nb from "@/store/api/NedbSDK";
+// nb.dbInit();
+// Vue.prototype.$nb = nb;
+
 import User from "./modules/User";
 import Database from "./modules/Database";
 import Document from "./modules/Document";
 import plugins from "./plugin";
-
-import { dbInit } from "@/store/api/NedbSDK";
-dbInit();
 
 import Base from "@/store/modules/Base";
 

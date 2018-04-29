@@ -113,7 +113,6 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
     this.collections = collections;
     this.userPath = userPath;
     this.pool = {};
-    this.dbInit();
   }
 
   dbInit() {
@@ -165,9 +164,9 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
   }
 
   /*
-                 * find the key
-                 * update the key with new value
-                 */
+                   * find the key
+                   * update the key with new value
+                   */
   async updateItem(
     db: IFireDatabase,
     query: any,
@@ -185,9 +184,9 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
   }
 
   /*
-                 * find the key
-                 * remove value
-                 */
+                   * find the key
+                   * remove value
+                   */
   async removeItem(db: IFireDatabase, query: any, table: string) {
     if (query !== undefined) table = table + "/" + query.uniKey;
     let snapshot = await db.ref(table + "/" + query.uniKey).remove();
@@ -197,8 +196,8 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
   }
 
   /*
-                 * async function
-                 */
+                   * async function
+                   */
   async findItem(db: IFireDatabase, query: any, table: string) {
     // using key to read will keep consistency of set and update
     // return {key: 12345, value: {name:, age:,}
