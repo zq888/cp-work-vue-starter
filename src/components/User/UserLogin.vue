@@ -105,6 +105,10 @@ export default class UserLogin extends Vue {
     console.log(user);
   }
 
+  doneLogin() {
+    this.$router.push({ path: "/home" });
+  }
+
   clearFields() {
     this.name = "";
     this.email = "";
