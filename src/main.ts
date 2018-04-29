@@ -4,13 +4,13 @@ import App from "./App.vue";
 
 import router from "./router";
 
-import store from "./store/index";
-
 import fb from "@/store/api/firebaseSDK";
 Vue.prototype.$fb = fb;
 
 import nb from "@/store/api/NedbSDK";
 Vue.prototype.$nb = nb;
+
+import store from "./store/index";
 
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.css";
