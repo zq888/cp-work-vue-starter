@@ -86,167 +86,17 @@ export const config = {
 */
 
 // console.log(config);
-firebase.initializeApp(config);
+// firebase.initializeApp(config);
 
-export const firebaseAuth = firebase.auth();
-export const firebaseDb = firebase.database();
-export const FacebookProvider = new firebase.auth.FacebookAuthProvider();
+// export const firebaseAuth = firebase.auth();
+// export const firebaseDb = firebase.database();
+// export const FacebookProvider = new firebase.auth.FacebookAuthProvider();
 // export const storage = firebase.storage();
-
-export async function loginWithEmail(email: string, password: string) {
-  let e = email || "xingwenju@gmail.com";
-  let p = password || "tswc0916";
-  let user = await firebaseAuth.signInWithEmailAndPassword(e, p);
-  console.log("Logged in as " + user.email);
-  return user;
-}
-
-export async function logonWithEmail(email: string, password: string) {
-  let e = email || "xingwenju@gmail.com";
-  let p = password || "tswc0916";
-  let user = await firebaseAuth.createUserWithEmailAndPassword(e, p);
-  return new Promise((resolve, reject) => {
-    resolve(user);
-  });
-}
-/**
- * Firebase Methods exported as API
- * set()	将数据写入或替换到定义的路径。
- * push()	添加到数据列表。Firebase 均会生成唯一ID
- * update()	更新定义的路径中的部分键，而不替换所有数据。
- * transaction()	更新可能因并发更新而损坏的复杂数据。
- * orderByChild()	按指定子键的值对结果排序。
- * orderByKey()	按子键对结果排序。
- * orderByValue()	按子值对结果排序。
- * limitToFirst()	设置要从排序结果列表开头返回的最大项目数。
- * limitToLast()	设置要从排序结果列表结尾返回的最大项目数。
- * startAt()	返回大于或等于指定键、值或优先级的项目，具体取决于所选的排序依据方法。
- * endAt()	返回小于或等于指定键、值或优先级的项目，具体取决于所选的排序依据方法。
- * equalTo()	返回等于指定键、值或优先级的项目，具体取决于所选的排序依据方法。
- * onDisconnect().remove()
- * on('value',()=>)
- */
-
-/*
- * create a new key
- * create a new value
- */
-export async function setDataInTable(
-  firebaseDb: IFireDatabase,
-  table: string,
-  data: any
-) {
-  // data = {...props}
-  // data = {name: ,age: }
-  console.log(data);
-  let key = await firebaseDb
-    .ref()
-    .child(table)
-    .push().key;
-  data["uniKey"] = key;
-  let snapshot = await firebaseDb.ref(table + "/" + key).set(data);
-  return new Promise((resolve, reject) => {
-    resolve(snapshot);
-  });
-}
-
-/*
- * find the key
- * update the key with new value
- */
-export async function updateDataInTable(
-  firebaseDb: any,
-  table: any,
-  data: any
-) {
-  // data = {id:, name:, age:,}
-  // read will return {key: 12345, value: {name:, age:,}
-  let updates: fbUpdates = {};
-  updates[table + "/" + data.uniKey] = data;
-  let snapshot = await firebaseDb.ref().update(updates);
-  return new Promise((resolve, reject) => {
-    resolve(snapshot);
-  });
-}
-
-/*
- * find the key
- * remove value
- */
-export async function deleteDataInTable(
-  firebaseDb: IFireDatabase,
-  table: string,
-  key: any
-) {
-  let snapshot = await firebaseDb.ref(table + "/" + key).remove();
-  return new Promise((resolve, reject) => {
-    resolve(snapshot);
-  });
-}
-
-/*
- * async function, callback must be info
- */
-export async function readDataInTable(
-  firebaseDb: IFireDatabase,
-  table: string,
-  key: any
-) {
-  // using key to read will keep consistency of set and update
-  // return {key: 12345, value: {name:, age:,}
-  let snapshot = await firebaseDb.ref(table + "/" + key).once("value");
-  return new Promise((resolve, reject) => {
-    resolve(snapshot);
-  });
-}
-/*
- * async function
- */
-export async function readTable(firebaseDb: IFireDatabase, table: string) {
-  // using key to read will keep consistency of set and update
-  // return {key: 12345, value: {name:, age:,}
-  let snapshot = await firebaseDb.ref(table).once("value");
-  return new Promise((resolve, reject) => {
-    resolve(snapshot);
-  });
-}
-
-export async function monitorWholeTable(
-  firebaseDb: IFireDatabase,
-  table: string
-) {
-  let tableRef = await firebaseDb.ref(table).on("value", () => {}, null, null);
-  return new Promise((resolve, reject) => {
-    resolve(tableRef);
-  });
-}
-
-export async function monitorTable(firebaseDb: IFireDatabase, table: string) {
-  let addedData = await firebaseDb
-    .ref(table)
-    .on("child_added", () => {}, null, null);
-
-  let changedData = await firebaseDb
-    .ref(table)
-    .on("child_changed", () => {}, null, null);
-
-  let removedData = await firebaseDb
-    .ref(table)
-    .on("child_removed", () => {}, null, null);
-
-  return new Promise((resolve, reject) => {
-    resolve({
-      addedData,
-      changedData,
-      removedData
-    });
-  });
-}
 
 /////////////////////////////////////////////////////////////////////////
 // Class
 /////////////////////////////////////////////////////////////////////////
-export default class clsFirebase implements IVuexFirebaseAdaptor {
+export class clsFirebase implements IVuexFirebaseAdaptor {
   userPath: string;
   pool: IFireDatabasePool;
   collections: string[];
@@ -292,7 +142,7 @@ export default class clsFirebase implements IVuexFirebaseAdaptor {
   async loginWithEmail(email: string, password: string) {
     let e = email || "xingwenju@gmail.com";
     let p = password || "tswc0916";
-    let user = await firebaseAuth.signInWithEmailAndPassword(e, p);
+    let user = await this.firebaseAuth.signInWithEmailAndPassword(e, p);
     return new Promise((resolve, _) => {
       console.log("Logged in as " + user.email);
       resolve(user);
@@ -302,7 +152,7 @@ export default class clsFirebase implements IVuexFirebaseAdaptor {
   async addItem(db: IFireDatabase, cleanPayload: any, table: string) {
     // data = {...props}
     // data = {name: ,age: }
-    console.log(cleanPayload);
+    // console.log(cleanPayload);
     let key = await db
       .ref()
       .child(table)
@@ -315,10 +165,15 @@ export default class clsFirebase implements IVuexFirebaseAdaptor {
   }
 
   /*
-     * find the key
-     * update the key with new value
-     */
-  async updateItem(db: IFireDatabase, cleanPayload: any, table: string) {
+                 * find the key
+                 * update the key with new value
+                 */
+  async updateItem(
+    db: IFireDatabase,
+    query: any,
+    cleanPayload: any,
+    table: string
+  ) {
     // data = {id:, name:, age:,}
     // read will return {key: 12345, value: {name:, age:,}
     let updates: fbUpdates = {};
@@ -330,20 +185,20 @@ export default class clsFirebase implements IVuexFirebaseAdaptor {
   }
 
   /*
-     * find the key
-     * remove value
-     */
+                 * find the key
+                 * remove value
+                 */
   async removeItem(db: IFireDatabase, query: any, table: string) {
     if (query !== undefined) table = table + "/" + query.uniKey;
-    let snapshot = await firebaseDb.ref(table + "/" + query.uniKey).remove();
+    let snapshot = await db.ref(table + "/" + query.uniKey).remove();
     return new Promise((resolve, reject) => {
       resolve(snapshot);
     });
   }
 
   /*
-     * async function
-     */
+                 * async function
+                 */
   async findItem(db: IFireDatabase, query: any, table: string) {
     // using key to read will keep consistency of set and update
     // return {key: 12345, value: {name:, age:,}
@@ -354,3 +209,7 @@ export default class clsFirebase implements IVuexFirebaseAdaptor {
     });
   }
 }
+
+const fb = new clsFirebase("", ["user"], config);
+
+export default fb;

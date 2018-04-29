@@ -19,7 +19,6 @@ import Datastore from "nedb";
 import { collections, user } from "@/store/Model/BaseModel";
 import { log } from "@/util";
 
-
 /////////////////////////////////////////////////////////////////////////
 // Interface
 /////////////////////////////////////////////////////////////////////////
@@ -50,7 +49,7 @@ export interface IVuexNedbAdaptor extends CPWork.IVuexAdaptor {
 }
 
 /////////////////////////////////////////////////////////////////////////
-// Module 
+// Module
 /////////////////////////////////////////////////////////////////////////
 
 let userPath = "";
@@ -99,8 +98,8 @@ export function dbOpen(collection: string) {
   return pool[collection];
 }
 
-/** 
- * Database table operation Module 
+/**
+ * Database table operation Module
  * /
 
  /**
@@ -186,14 +185,14 @@ export const removeItem = async (db: Datastore, query: any) => {
 };
 
 /////////////////////////////////////////////////////////////////////////
-// Class 
+// Class
 /////////////////////////////////////////////////////////////////////////
 
 /**
  * VuexNedbAdaptor类
  * Vuex使用Nedb作为后台的接口
  */
-export default class VuexNedbAdaptor implements IVuexNedbAdaptor {
+export class VuexNedbAdaptor implements IVuexNedbAdaptor {
   userPath: string;
   pool: INedbDatabasePool;
   collections: string[];
@@ -204,6 +203,7 @@ export default class VuexNedbAdaptor implements IVuexNedbAdaptor {
     this.userPath = userPath;
     this.pool = {};
     this.current = "";
+    this.dbInit();
   }
 
   dbInit() {
@@ -237,15 +237,15 @@ export default class VuexNedbAdaptor implements IVuexNedbAdaptor {
     this.current = collection || "db";
   }
 
-  /** 
- * Database table operation Module 
- * /
+  /**
+       * Database table operation Module
+       * /
 
- /**
- * 通过查询语句，获取数据，返回一个Promise<数据[]>
- * @param db Nedb Datastore
- * @param query MongoDB-style query
- */
+       /**
+       * 通过查询语句，获取数据，返回一个Promise<数据[]>
+       * @param db Nedb Datastore
+       * @param query MongoDB-style query
+       */
   findItem = (db: Datastore, query: any) => {
     if (db === undefined || query === undefined) return;
     return new Promise((resolve, reject) => {
@@ -319,3 +319,6 @@ export default class VuexNedbAdaptor implements IVuexNedbAdaptor {
     });
   };
 }
+
+const nb = new VuexNedbAdaptor("", collections);
+export default nb;

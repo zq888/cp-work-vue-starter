@@ -23,7 +23,7 @@
     ></v-checkbox>
 
     <v-btn @click="netlifyLogin">Netlify Login</v-btn>
-    <v-btn @click="firelogin">Firebase Login</v-btn>
+    <v-btn @click="fireLogin">Firebase Login</v-btn>
   </form>
 </template>
 <script lang="ts">
@@ -88,10 +88,7 @@ export default class UserLogin extends Vue {
     });
   }
 
-  fireLogin() {
-    const fb = new clsFirebase("", ["user"], config);
-    console.log(fb);
-  }
+  fireLogin() {}
 
   clearFields() {
     this.name = "";

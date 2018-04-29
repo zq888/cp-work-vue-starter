@@ -16,11 +16,13 @@ import Base from "@/store/modules/Base";
 interface IState {
   title: string;
   filterKey: string;
+  token: string;
 }
 
 const state: IState = {
   title: "xing wenju",
-  filterKey: ""
+  filterKey: "",
+  token: ""
 };
 
 export default new Vuex.Store({

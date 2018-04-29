@@ -4,39 +4,42 @@ import * as types from "@/store/types";
 
 import { collections } from "@/store/Model/BaseModel";
 
-import {
-  firebaseDb,
-  loginWithEmail,
-  logonWithEmail,
-  setDataInTable,
-  updateDataInTable,
-  deleteDataInTable,
-  readDataInTable,
-  readTable,
-  monitorWholeTable
-} from "@/store/api/firebaseSDK";
+import fb from "@/store/api/firebaseSDK";
 
 export const FirebasePlugin = (options: any = {}) => {
   return (store: any) => {
     const namespace = options.namespace || "";
     store.subscribe((mutation: any, state: any) => {
-      log.suc(mutation.type);
+      log.suc("Firebase Plugin enabled!");
+      log.err(mutation.type);
       let cleanPayload = mutation.payload;
       if (mutation.type === `${namespace}/${types.mCreate}`) {
-        log.info(`Creating ${namespace} with plugin...!`);
-        setDataInTable(firebaseDb, namespace, cleanPayload);
+        log.suc(`Creating ${namespace} with plugin...!`);
+        fb.addItem(fb.firebaseDb, cleanPayload, namespace).catch(snapshot => {
+          log.info(snapshot);
+        });
       }
       if (mutation.type === `${namespace}/${types.mDelete}`) {
-        log.info(`Deleting ${namespace} with plugin...!`);
-        deleteDataInTable(firebaseDb, namespace, cleanPayload._uniKey);
+        log.suc(`Deleting ${namespace} with plugin...!`);
+        fb
+          .removeItem(fb.firebaseDb, cleanPayload, namespace)
+          .catch(snapshot => {
+            log.info(snapshot);
+          });
       }
       if (mutation.type === `${namespace}/${types.mUpdate}`) {
-        log.info(`Updating ${namespace} with plugin...!`);
-        updateDataInTable(firebaseDb, namespace, cleanPayload._uniKey);
+        log.suc(`Updating ${namespace} with plugin...!`);
+        fb
+          .updateItem(fb.firebaseDb, {}, cleanPayload, namespace)
+          .catch(snapshot => {
+            log.info(snapshot);
+          });
       }
       if (mutation.type === `${namespace}/${types.mRead}`) {
-        log.info(`Finding ${namespace} with plugin...!`);
-        readTable(firebaseDb, namespace);
+        log.suc(`Finding ${namespace} with plugin...!`);
+        fb.findItem(fb.firebaseDb, {}, namespace).catch(snapshot => {
+          log.info(snapshot);
+        });
       }
     });
   };
