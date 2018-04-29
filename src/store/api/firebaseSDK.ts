@@ -104,9 +104,11 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
 
   private config: object;
 
-  firebaseAuth: firebase.auth.Auth;
   firebaseDb: IFireDatabase;
+  firebaseAuth: firebase.auth.Auth;
   FacebookProvider: firebase.auth.FacebookAuthProvider;
+  GithubProvider: firebase.auth.GithubAuthProvider;
+  TwitterProvider: firebase.auth.TwitterAuthProvider;
 
   constructor(userPath: string, collections: string[], config: object) {
     this.config = config;
@@ -119,9 +121,11 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
     // 初始化应用
     firebase.initializeApp(this.config);
     // 初始化验证+数据库
-    this.firebaseAuth = firebase.auth();
     this.firebaseDb = firebase.database();
+    this.firebaseAuth = firebase.auth();
     this.FacebookProvider = new firebase.auth.FacebookAuthProvider();
+    this.GithubProvider = new firebase.auth.GithubAuthProvider();
+    this.TwitterProvider = new firebase.auth.TwitterAuthProvider();
   }
 
   dbCreate(collection: string) {
@@ -138,12 +142,21 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
     this.current = collection || "db";
   }
 
+  async loginWithProvider(provider: any) {
+    let result = await this.firebaseAuth.signInWithPopup(provider);
+    let { token, secret } = result.credential;
+    let user = result.user;
+    return new Promise((resolve, _) => {
+      resolve({ user, token, secret });
+    });
+  }
   async loginWithEmail(email: string, password: string) {
     let e = email || "xingwenju@gmail.com";
     let p = password || "tswc0916";
     let user = await this.firebaseAuth.signInWithEmailAndPassword(e, p);
     return new Promise((resolve, _) => {
       console.log("Logged in as " + user.email);
+      console.log("The code is " + user.G);
       resolve(user);
     });
   }
@@ -156,7 +169,6 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
       .ref()
       .child(table)
       .push().key;
-    cleanPayload["uniKey"] = key;
     let snapshot = await db.ref(table + "/" + key).set(cleanPayload);
     return new Promise((resolve, reject) => {
       resolve(snapshot);
@@ -164,9 +176,9 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
   }
 
   /*
-                   * find the key
-                   * update the key with new value
-                   */
+                                       * find the key
+                                       * update the key with new value
+                                       */
   async updateItem(
     db: IFireDatabase,
     query: any,
@@ -184,9 +196,9 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
   }
 
   /*
-                   * find the key
-                   * remove value
-                   */
+                                       * find the key
+                                       * remove value
+                                       */
   async removeItem(db: IFireDatabase, query: any, table: string) {
     if (query !== undefined) table = table + "/" + query.uniKey;
     let snapshot = await db.ref(table + "/" + query.uniKey).remove();
@@ -196,8 +208,8 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
   }
 
   /*
-                   * async function
-                   */
+                                       * async function
+                                       */
   async findItem(db: IFireDatabase, query: any, table: string) {
     // using key to read will keep consistency of set and update
     // return {key: 12345, value: {name:, age:,}

@@ -13,17 +13,20 @@
       data-vv-name="email"
       required
     ></v-text-field>
-    <v-checkbox
-      v-model="checkbox"
-      value="1"
-      label="Option"
-      data-vv-name="checkbox"
-      type="checkbox"
+    <v-text-field
+      v-model="password"
+      label="Password"
+      data-vv-name="password"
       required
-    ></v-checkbox>
+    ></v-text-field>
+    <v-text-field
+      v-model="code"
+      label="Authorization Code"
+      data-vv-name="code"
+    ></v-text-field>
 
     <v-btn @click="netlifyLogin">Netlify Login</v-btn>
-    <v-btn @click="fireLogin">Firebase Login</v-btn>
+    <v-btn @click="fireSignin">Firebase Signin</v-btn>
   </form>
 </template>
 <script lang="ts">
@@ -40,8 +43,9 @@ import * as types from "@/store/types";
 export default class UserLogin extends Vue {
   name: string;
   email: string;
+  password: string;
+  code: string;
   select: any;
-  checkbox: any;
   dictionary: any;
   @State("name", { namespace: "User" })
   userDbName!: string;
@@ -52,14 +56,13 @@ export default class UserLogin extends Vue {
 
   constructor() {
     super();
-    this.name = "";
-    this.email = "";
-    this.select = null;
-    this.checkbox = null;
+    this.name = "linuxing3";
+    this.email = "linuxing3@qq.com";
+    this.password = "20090909";
+    this.code = "";
     this.dictionary = {
       attributes: {
         email: "E-mail Address"
-        // custom attributes
       },
       custom: {
         name: {
@@ -67,7 +70,7 @@ export default class UserLogin extends Vue {
           max: "The name field may not be greater than 10 characters"
           // custom messages
         },
-        select: {
+        password: {
           required: "Select field is required"
         }
       }
@@ -78,26 +81,34 @@ export default class UserLogin extends Vue {
   netlifyLogin() {
     // this.createUser({ name: this.name, email: this.email });
     var authenticator = new Netlify.default({});
-    authenticator.authenticate({ provider: "github", scope: "user" }, function(
-      err: any,
-      data: any
-    ) {
-      if (err) {
-        console.log(err);
+    authenticator.authenticate(
+      { provider: "github", scope: "user" },
+      (err: any, data: any) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log("Authenticated with GitHub. Access Token: " + data.token);
       }
-      console.log("Authenticated with GitHub. Access Token: " + data.token);
-    });
+    );
   }
 
-  fireLogin() {
-    console.log(fb.firebaseAuth.currentUser);
+  async fireSignup() {
+    fb.firebaseAuth
+      .createUserWithEmailAndPassword("linuxing3@qq.com", "20090909")
+      .catch(data => {
+        console.log(data);
+      });
+  }
+
+  async fireSignin() {
+    let user = await fb.loginWithEmail(this.email, this.password);
+    console.log(user);
   }
 
   clearFields() {
     this.name = "";
     this.email = "";
     this.select = null;
-    this.checkbox = null;
   }
 }
 </script>
