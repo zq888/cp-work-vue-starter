@@ -32,6 +32,8 @@ import { State, Action, Getter } from "vuex-class";
 
 const Netlify = require("netlify-auth-providers");
 
+import fb from "@/store/api/firebaseSDK";
+
 import * as types from "@/store/types";
 
 @Component
@@ -87,7 +89,9 @@ export default class UserLogin extends Vue {
     });
   }
 
-  fireLogin() {}
+  fireLogin() {
+    console.log(fb.firebaseAuth.currentUser);
+  }
 
   clearFields() {
     this.name = "";
