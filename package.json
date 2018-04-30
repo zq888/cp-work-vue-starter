@@ -10,7 +10,8 @@
     "press:build": "vuepress build docs",
     "graphql-api": "vue-cli-service graphql-api",
     "run-graphql-api": "vue-cli-service run-graphql-api",
-    "prod-graphql-api": "cross-env NODE_ENV=production vue-cli-service run-graphql-api",
+    "prod-graphql-api":
+      "cross-env NODE_ENV=production vue-cli-service run-graphql-api",
     "build:electron": "vue-cli-service build:electron",
     "serve:electron": "vue-cli-service serve:electron"
   },
@@ -57,31 +58,17 @@
     "nedb": "^1.8.0",
     "vue-cli-plugin-apollo": "^0.7.7",
     "vue-cli-plugin-electron-builder": "^0.1.7",
-    "vue-cli-plugin-netlify-lambda": "^0.1.0",
     "vue-template-compiler": "^2.5.13",
     "vuepress": "^0.8.3"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
-      "vue-cli-service lint",
-      "git add"
-    ],
-    "*.ts": [
-      "vue-cli-service lint",
-      "git add"
-    ],
-    "*.vue": [
-      "vue-cli-service lint",
-      "git add"
-    ]
+    "*.js": ["vue-cli-service lint", "git add"],
+    "*.ts": ["vue-cli-service lint", "git add"],
+    "*.vue": ["vue-cli-service lint", "git add"]
   },
   "electronWebpack": {
     "renderer": {
@@ -92,10 +79,6 @@
     "directories": {
       "output": "dist_electron"
     },
-    "files": [
-      "dist/**/*",
-      "node_modules/**/*",
-      "package.json"
-    ]
+    "files": ["dist/**/*", "node_modules/**/*", "package.json"]
   }
 }
