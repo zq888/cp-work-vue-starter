@@ -64,76 +64,80 @@ import * as types from "@/store/types";
 
 @Component
 export default class UserLogin extends Vue {
-  name: string;
-  email: string;
-  password: string;
-  warnDialoge: boolean;
-  warnText: string;
-  inProgress: boolean;
+  name: string = "linuxing3";
+  email: string = "linuxing3@qq.com";
+  password: string = "20090909";
+
+  warnDialoge: boolean = false;
+  warnText: string = "";
+  inProgress: boolean = false;
 
   @State("firebaseToken") firebaseToken: string;
   @State("netlifyToken") netlifyToken: string;
   @State("netlifyLoggedIn") netlifyLoggedIn: boolean;
   @State("firebaseLoggedIn") firebaseLoggedIn: boolean;
 
-  constructor() {
-    super();
-    this.name = "linuxing3";
-    this.email = "linuxing3@qq.com";
-    this.password = "20090909";
-    this.warnDialoge = false;
-    this.warnText = "";
-    this.inProgress = false;
-  }
-  mounted() {}
-
-  netlifyLogin() {
-    // this.createUser({ name: this.name, email: this.email });
+  async netlifyLogin() {
+    this.inProgress = true;
     var authenticator = new Netlify.default({});
     authenticator.authenticate({ provider: "github", scope: "user" }, (err: any, data: any) => {
       if (err) {
-        console.log(err);
+        this.onLoginError();
       }
       console.log("Authenticated with GitHub. Access Token: " + data.token);
-      this.netlifyToken = data.token;
+      // this.netlifyToken = data.token;
+      this.doneLogin();
     });
   }
 
+  /**
+   * Signup with password and email
+   */
   async fireSignup() {
-    fb.firebaseAuth.createUserWithEmailAndPassword("linuxing3@qq.com", "20090909").catch(data => {
-      console.log(data);
-    });
+    fb.firebaseAuth
+      .createUserWithEmailAndPassword("linuxing3@qq.com", "20090909")
+      .then((data: any) => {
+        console.log(data);
+        this.doneLogin();
+      })
+      .catch((err: any) => {
+        this.onLoginError();
+      });
   }
-
+  /**
+   * Signin with password and email
+   */
   async fireSignin() {
     this.inProgress = true;
     let user: object = await fb.loginWithEmail(this.email, this.password);
     if (user !== undefined) {
-      this.warnText = "你已成功登录，可以继续使用本系统。";
-      this.inProgress = false;
-      this.navigate("/help");
+      this.doneLogin();
     } else {
-      console.log("You Must login...");
-      this.warnText = "你必须要登录才可以继续使用本系统。";
-      this.warnDialoge = true;
+      this.onLoginError();
     }
   }
-
-  navigate(to: string, payload?: string) {
-    this.$router.push({ path: to });
+  /**
+   * After login, goto help page view
+   */
+  doneLogin() {
+    this.warnText = "你已成功登录，可以继续使用本系统。";
+    this.inProgress = false;
+    this.$router.push({ path: "/help" });
+    // should upate the global state token for session
   }
 
-  doneLogin() {
-    this.$router.push({ path: "/home" });
+  /**
+   * on login error, alert
+   */
+  onLoginError() {
+    console.log("You Must login...");
+    this.warnText = "你必须要登录才可以继续使用本系统。";
+    this.warnDialoge = true;
   }
 
   clearFields() {
     this.name = "";
     this.email = "";
-  }
-
-  LoginStatus(oldToken: string, newToken: string) {
-    return false;
   }
 }
 </script>
