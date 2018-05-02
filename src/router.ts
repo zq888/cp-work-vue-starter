@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import About from "./views/About.vue";
+import Welcome from "./views/Welcome.vue";
 import Apollo from "./views/Apollo.vue";
 import User from "./views/User.vue";
 import Document from "./views/Document.vue";
@@ -15,52 +16,57 @@ export default new Router({
   routes: [
     {
       path: "*",
-      redirect: "/login"
+      redirect: "/home",
     },
     {
       path: "/home",
       name: "home",
-      component: Home
+      component: Home,
     },
     {
       path: "/",
-      name: "login",
-      component: Login
+      name: "home",
+      component: Home,
     },
     {
       path: "/user",
       name: "user",
-      component: User
+      component: User,
     },
     {
       path: "/user/:page",
       name: "user-page",
-      component: User
+      component: User,
     },
     {
       path: "/document/:page",
       name: "document-page",
-      component: Document
+      component: Document,
     },
     {
       path: "/database",
       name: "database",
-      component: Database
+      component: Database,
     },
     {
       path: "/help",
       name: "help",
-      component: Help
+      component: Help,
     },
     {
       path: "/about",
       name: "about",
-      component: About
+      component: About,
+    },
+    {
+      path: "/welcome",
+      name: "welcome",
+      component: Welcome,
     },
     {
       path: "/apollo",
       name: "apollo",
-      component: Apollo
-    }
-  ]
+      component: Apollo,
+    },
+  ],
 });

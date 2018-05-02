@@ -13,7 +13,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { State, Getter } from "vuex-class";
 
 @Component
-export default class About extends Vue {
+export default class HelloWorld extends Vue {
   items: any[] = [
     {
       src: "https://vuepress.vuejs.org/hero.png",

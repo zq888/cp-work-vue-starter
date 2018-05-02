@@ -109,7 +109,6 @@
         </v-layout>
       </v-container>
     </v-content>
-    <RegisterDialog />
   </v-app>
 </template>
 
@@ -124,18 +123,18 @@ const nsUser = { namespace: types.nsUser };
 
 @Component({
   components: {
-    RegisterDialog
-  }
+    RegisterDialog,
+  },
 })
 export default class App extends Vue {
   items: any[];
 
-  drawer: any;
+  drawer: boolean;
 
   @Prop() source: String;
 
   @State("filterKey", nsUser)
-  filterKey!: string;
+  filterKey: string;
   @Mutation(types.mSetFilter, nsUser)
   setFilter: Function;
 
@@ -146,7 +145,7 @@ export default class App extends Vue {
   constructor() {
     super();
 
-    this.drawer = null;
+    this.drawer = false;
     this.items = [
       { icon: "phonelink", text: "欢迎", to: "/" },
       {
@@ -157,8 +156,8 @@ export default class App extends Vue {
           { icon: "add", text: "列表", to: "/user/table" },
           { icon: "add", text: "卡片", to: "/user/card" },
           { icon: "add", text: "简历", to: "/user/profile" },
-          { icon: "add", text: "设置", to: "/user/grid" }
-        ]
+          { icon: "add", text: "设置", to: "/user/grid" },
+        ],
       },
       {
         icon: "keyboard",
@@ -168,8 +167,8 @@ export default class App extends Vue {
           { icon: "add", text: "列表", to: "/document/table" },
           { icon: "add", text: "卡片", to: "/document/card" },
           { icon: "add", text: "简历", to: "/document/profile" },
-          { icon: "add", text: "设置", to: "/document/grid" }
-        ]
+          { icon: "add", text: "设置", to: "/document/grid" },
+        ],
       },
       // { icon: "history", text: "Apollo", to: "/apollo" },
       // { icon: "content_copy", text: "Duplicates", to: "/about" },
@@ -182,13 +181,13 @@ export default class App extends Vue {
         children: [
           { icon: "add", text: "创建", to: "/database" },
           { icon: "add", text: "管理", to: "/database/manage" },
-          { icon: "add", text: "导入/导出", to: "/database/export" }
-        ]
+          { icon: "add", text: "导入/导出", to: "/database/export" },
+        ],
       },
       { icon: "settings", text: "设置", to: "/about" },
       { icon: "chat_bubble", text: "反馈", to: "/about" },
       { icon: "help", text: "帮助", to: "/help" },
-      { icon: "phonelink", text: "下载应用", to: "/about" }
+      { icon: "phonelink", text: "下载应用", to: "/about" },
       // { icon: "keyboard", text: "Go to the old version", to: "/about" }
     ];
   }
