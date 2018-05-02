@@ -1,56 +1,52 @@
-import { log } from "@/util";
+import { log } from "@/util"
 
-import * as types from "@/store/types";
+import * as types from "@/store/types"
 
-import { collections } from "@/store/Model/BaseModel";
+import { collections } from "@/store/Model/BaseModel"
 
-import fb from "@/store/api/firebaseSDK";
+import { fb } from "@/store/api/firebaseSDK"
 
 export const FirebasePlugin = (options: any = {}) => {
   return (store: any) => {
-    const namespace = options.namespace || "";
+    const namespace = options.namespace || ""
     store.subscribe((mutation: any, state: any) => {
-      log.suc("FireBase Log:" + mutation.type);
-      let cleanPayload = mutation.payload;
+      log.suc("FireBase Log:" + mutation.type)
+      let cleanPayload = mutation.payload
       if (mutation.type === `${namespace}/${types.mCreate}`) {
-        log.suc(`---> Creating ${namespace} with plugin...!`);
+        log.suc(`---> Creating ${namespace} with plugin...!`)
         fb.addItem(fb.firebaseDb, cleanPayload, namespace).catch(snapshot => {
-          log.info(snapshot);
-        });
+          log.info(snapshot)
+        })
       }
       if (mutation.type === `${namespace}/${types.mDelete}`) {
-        log.suc(`---> Deleting ${namespace} with plugin...!`);
-        fb
-          .removeItem(fb.firebaseDb, cleanPayload, namespace)
-          .catch(snapshot => {
-            log.info(snapshot);
-          });
+        log.suc(`---> Deleting ${namespace} with plugin...!`)
+        fb.removeItem(fb.firebaseDb, cleanPayload, namespace).catch(snapshot => {
+          log.info(snapshot)
+        })
       }
       if (mutation.type === `${namespace}/${types.mUpdate}`) {
-        log.suc(`---> Updating ${namespace} with plugin...!`);
-        fb
-          .updateItem(fb.firebaseDb, {}, cleanPayload, namespace)
-          .catch(snapshot => {
-            log.info(snapshot);
-          });
+        log.suc(`---> Updating ${namespace} with plugin...!`)
+        fb.updateItem(fb.firebaseDb, {}, cleanPayload, namespace).catch(snapshot => {
+          log.info(snapshot)
+        })
       }
       if (mutation.type === `${namespace}/${types.mRead}`) {
-        log.suc(`---> Finding ${namespace} with plugin...!`);
+        log.suc(`---> Finding ${namespace} with plugin...!`)
         fb.findItem(fb.firebaseDb, {}, namespace).catch(snapshot => {
-          log.info(snapshot);
-        });
+          log.info(snapshot)
+        })
       }
-    });
-  };
-};
+    })
+  }
+}
 
 export const PersistencePlugin = (options: any) => {
   return (store: any) => {
-    let namespace = options.namespace || "";
+    let namespace = options.namespace || ""
     // Read data from Nedb
-    store.dispatch(`${namespace}/${types.aRead}`, {});
+    store.dispatch(`${namespace}/${types.aRead}`, {})
     store.subscribe((mutation: any) => {
-      log.suc("Persistence Log:" + mutation.type);
-    });
-  };
-};
+      log.suc("Persistence Log:" + mutation.type)
+    })
+  }
+}
