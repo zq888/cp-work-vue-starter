@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    <v-dialog v-model="dialog" width="80%">
+    <v-dialog v-model="netlifyLoggedIn" width="80%">
       <v-card>
         <v-card-title>
           <span class="headline">{{ formTitle }}</span>
@@ -17,19 +17,22 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import RegisterDialog from "@/components/Shared/RegisterDialog.vue";
-import UserLogin from "@/components/User/UserLogin.vue";
+import { Component, Prop, Vue } from "vue-property-decorator"
+import { State, Action, Getter } from "vuex-class"
+import RegisterDialog from "@/components/Shared/RegisterDialog.vue"
+import UserLogin from "@/components/User/UserLogin.vue"
 
 @Component({
-  components: { RegisterDialog, UserLogin }
+  components: { RegisterDialog, UserLogin },
 })
 export default class Login extends Vue {
   // Props
-  formTitle: string = "Login With Account";
-  dialog: boolean = true;
+  formTitle: string = "Login With Account"
+  @State("netlifyLoggedIn") netlifyLoggedIn: boolean
+  @State("firebaseLoggedIn") firebaseLoggedIn: boolean
+  dialog: boolean = false
   doneLogin() {
-    this.dialog = false;
+    this.dialog = false
     // this.$router.push({ path: "/home" });
   }
 }

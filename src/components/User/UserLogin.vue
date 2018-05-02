@@ -10,12 +10,14 @@
     <v-text-field
       v-model="email"
       label="E-mail"
+      type="email"
       data-vv-name="email"
       required
     ></v-text-field>
     <v-text-field
       v-model="password"
       label="Password"
+      type="email"
       data-vv-name="password"
       required
     ></v-text-field>
@@ -30,7 +32,7 @@
   </form>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator"
+import { Component, Prop, Watch, Vue } from "vue-property-decorator"
 import { State, Action, Getter } from "vuex-class"
 
 const Netlify = require("netlify-auth-providers")
@@ -47,8 +49,14 @@ export default class UserLogin extends Vue {
   code: string
   select: any
   dictionary: any
+  @Watch("netlifyToken", { immediate: true })
+  @State("firebaseToken")
+  firebaseToken: string
+  @State("netlifyToken") netlifyToken: string
+  @State("netlifyLoggedIn") netlifyLoggedIn: boolean
+  @State("firebaseLoggedIn") firebaseLoggedIn: boolean
   @State("name", { namespace: "User" })
-  userDbName!: string
+  userDbName: string
   @State("items", { namespace: "User" })
   items: any[]
   @Action(types.aCreate, { namespace: "User" })
@@ -86,6 +94,7 @@ export default class UserLogin extends Vue {
         console.log(err)
       }
       console.log("Authenticated with GitHub. Access Token: " + data.token)
+      this.netlifyToken = data.token
     })
   }
 
@@ -108,6 +117,12 @@ export default class UserLogin extends Vue {
     this.name = ""
     this.email = ""
     this.select = null
+  }
+
+  checkStatus() {
+    if (this.netlifyToken !== undefined) {
+      this.netlifyLoggedIn = true
+    }
   }
 }
 </script>
