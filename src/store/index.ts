@@ -18,19 +18,20 @@ import Base from "@/store/modules/Base";
 interface IState {
   title: string;
   filterKey: string;
-  netlifyToken: string;
-  netlifyLoggedIn: boolean;
-  firebaseToken: string;
-  firebaseLoggedIn: boolean;
+  token: {
+    [token: string]: string;
+  };
+  loggedIn: boolean;
 }
 
 const state: IState = {
   title: "xing wenju",
   filterKey: "",
-  netlifyToken: "",
-  netlifyLoggedIn: false,
-  firebaseToken: "",
-  firebaseLoggedIn: false,
+  token: {
+    netlifyToken: "",
+    firebaseToken: "",
+  },
+  loggedIn: false,
 };
 
 export default new Vuex.Store({

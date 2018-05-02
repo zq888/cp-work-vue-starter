@@ -42,6 +42,7 @@ declare namespace CPWork {
     activeItem: any;
     filterKey?: string;
     sortKey?: string;
+    token?: any;
   }
 
   /**

@@ -88,13 +88,11 @@
       ></v-text-field>
       <v-spacer></v-spacer>
       <v-btn icon @click="navigate('/about')">
-        <v-icon>apps</v-icon>
-      </v-btn>
-      <v-btn icon @click="navigate('/about')">
         <v-icon>notifications</v-icon>
       </v-btn>
-      <v-btn icon large @click="navigate('/login')">
-        <v-avatar size="32px" tile>
+      <NavigationBar condition="token.firebaseToken !== '' || token.netlifyToken !==''" />
+      <v-btn icon v-if="token.firebaseToken !== '' || token.netlifyToken !==''">
+        <v-avatar size="24px" tile>
           <img
             src="https://vuetifyjs.com/static/doc-images/logo.svg"
             alt="Vuetify"
@@ -115,7 +113,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { State, Mutation, Action, Getter } from "vuex-class";
-import RegisterDialog from "./components/Shared/RegisterDialog.vue";
+import NavigationBar from "./components/Shared/NavigationBar.vue";
 
 import * as types from "@/store/types";
 import { defaultUser } from "@/store/Model/BaseModel";
@@ -123,7 +121,7 @@ const nsUser = { namespace: types.nsUser };
 
 @Component({
   components: {
-    RegisterDialog,
+    NavigationBar,
   },
 })
 export default class App extends Vue {
@@ -133,6 +131,7 @@ export default class App extends Vue {
 
   @Prop() source: String;
 
+  @State("token") token: any;
   @State("filterKey", nsUser)
   filterKey: string;
   @Mutation(types.mSetFilter, nsUser)
@@ -156,7 +155,6 @@ export default class App extends Vue {
           { icon: "add", text: "列表", to: "/user/table" },
           { icon: "add", text: "卡片", to: "/user/card" },
           { icon: "add", text: "简历", to: "/user/profile" },
-          { icon: "add", text: "设置", to: "/user/grid" },
         ],
       },
       {
@@ -167,7 +165,6 @@ export default class App extends Vue {
           { icon: "add", text: "列表", to: "/document/table" },
           { icon: "add", text: "卡片", to: "/document/card" },
           { icon: "add", text: "简历", to: "/document/profile" },
-          { icon: "add", text: "设置", to: "/document/grid" },
         ],
       },
       // { icon: "history", text: "Apollo", to: "/apollo" },

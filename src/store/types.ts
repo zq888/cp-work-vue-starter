@@ -5,6 +5,7 @@ export const mCreate = "mutationCreate",
   mReadOne = "mutationReadOne",
   mSetValue = "mutationSetValue",
   mSetFilter = "mutationSetFilter",
+  mSetToken = "mutationSetToken",
   mDbCreate = "mutationDbCreate",
   mDbDelete = "mutationDbDelete",
   mSetActive = "mutationSetActive";

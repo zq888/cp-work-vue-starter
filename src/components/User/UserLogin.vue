@@ -72,10 +72,8 @@ export default class UserLogin extends Vue {
   warnText: string = "";
   inProgress: boolean = false;
 
-  @State("firebaseToken") firebaseToken: string;
-  @State("netlifyToken") netlifyToken: string;
-  @State("netlifyLoggedIn") netlifyLoggedIn: boolean;
-  @State("firebaseLoggedIn") firebaseLoggedIn: boolean;
+  @State("token") token: any;
+  @State("loggedIn") loggedIn: boolean;
 
   async netlifyLogin() {
     this.inProgress = true;
@@ -85,7 +83,7 @@ export default class UserLogin extends Vue {
         this.onLoginError();
       }
       console.log("Authenticated with GitHub. Access Token: " + data.token);
-      // this.netlifyToken = data.token;
+      this.token.netlifyToken = data.token;
       this.doneLogin();
     });
   }
@@ -111,6 +109,7 @@ export default class UserLogin extends Vue {
     this.inProgress = true;
     let user: object = await fb.loginWithEmail(this.email, this.password);
     if (user !== undefined) {
+      this.token.firebaseToken = user.G;
       this.doneLogin();
     } else {
       this.onLoginError();

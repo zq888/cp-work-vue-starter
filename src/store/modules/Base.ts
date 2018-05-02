@@ -12,7 +12,7 @@ import {
   addItem,
   findItem,
   updateItem,
-  removeItem
+  removeItem,
 } from "@/store/api/NedbSDK";
 
 /**
@@ -24,7 +24,7 @@ import {
 const CPDispatch = (
   ctx: ActionContext<CPWork.IBaseState, any>,
   actionType: string,
-  payload: object | object[]
+  payload: object | object[],
 ) => {
   return ctx.dispatch(actionType, payload);
 };
@@ -38,7 +38,7 @@ const CPDispatch = (
 const CPCommit = (
   ctx: ActionContext<CPWork.IBaseState, any>,
   actionType: string,
-  payload: object | object[]
+  payload: object | object[],
 ) => {
   return ctx.commit(actionType, payload);
 };
@@ -51,7 +51,7 @@ const getters = {
   },
   itemFiltered: (state: CPWork.IBaseState) => {
     return baseFilter(state.items, state.sortKey, state.filterKey);
-  }
+  },
 };
 
 const mutations = {
@@ -74,6 +74,9 @@ const mutations = {
   [types.mSetFilter]: (state: CPWork.IBaseState, payload: any) => {
     state.filterKey = payload.target.value;
   },
+  [types.mSetToken]: (state: CPWork.IBaseState, payload: any) => {
+    state.token = payload;
+  },
   [types.mSetActive]: (state: any, payload: any) => {
     state.activeItem = payload;
   },
@@ -82,62 +85,47 @@ const mutations = {
   },
   [types.mDbDelete]: (state: any, payload: any) => {
     dbRemove(payload);
-  }
+  },
 };
 
 const actions = {
-  [types.aCreate]: async (
-    ctx: ActionContext<CPWork.IBaseState, any>,
-    payload: any
-  ) => {
+  [types.aCreate]: async (ctx: ActionContext<CPWork.IBaseState, any>, payload: any) => {
     // 不使用辅助函数，先本地存储，再提交
     let newDoc = await addItem(dbOpen(ctx.state.name), payload);
     ctx.commit(types.mCreate, newDoc);
   },
-  [types.aDelete]: async (
-    ctx: ActionContext<CPWork.IBaseState, any>,
-    payload: any
-  ) => {
+  [types.aDelete]: async (ctx: ActionContext<CPWork.IBaseState, any>, payload: any) => {
     // 不使用辅助函数，先本地存储，再提交
     let n = await removeItem(dbOpen(ctx.state.name), {
-      _id: payload._id
+      _id: payload._id,
     });
     if (n !== null) ctx.commit(types.mDelete, payload);
   },
-  [types.aUpdate]: async (
-    ctx: ActionContext<CPWork.IBaseState, any>,
-    payload: any
-  ) => {
+  [types.aUpdate]: async (ctx: ActionContext<CPWork.IBaseState, any>, payload: any) => {
     // 不使用辅助函数，先本地存储，再提交
     let { _id, ...cleanPayload } = payload;
     let query = {
-      _id: payload._id
+      _id: payload._id,
     };
     let n = await updateItem(dbOpen(ctx.state.name), query, cleanPayload);
     if (n !== null) ctx.commit(types.mUpdate, payload);
   },
-  [types.aRead]: async (
-    ctx: ActionContext<CPWork.IBaseState, any>,
-    payload: any
-  ) => {
+  [types.aRead]: async (ctx: ActionContext<CPWork.IBaseState, any>, payload: any) => {
     // 不使用辅助函数，先本地存储，再提交
     let docs = await findItem(dbOpen(ctx.state.name), {});
     ctx.commit(types.mRead, docs);
   },
-  [types.aReadOne]: async (
-    ctx: ActionContext<CPWork.IBaseState, any>,
-    payload: any
-  ) => {
+  [types.aReadOne]: async (ctx: ActionContext<CPWork.IBaseState, any>, payload: any) => {
     // 使用辅助函数，先本地存储，再提交
     let docs = await findItem(dbOpen(ctx.state.name), {});
     if (docs !== undefined) {
       CPCommit(ctx, types.mReadOne, docs);
     }
-  }
+  },
 };
 
 export default {
   getters,
   actions,
-  mutations
+  mutations,
 };
