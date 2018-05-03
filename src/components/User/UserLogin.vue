@@ -68,6 +68,10 @@ export default class UserLogin extends Vue {
   email: string = "linuxing3@qq.com";
   password: string = "20090909";
 
+  photoUrl: string | null = "";
+  uid: string | null = "";
+  emailVerified: boolean = false;
+
   warnDialoge: boolean = false;
   warnText: string = "";
   inProgress: boolean = false;
@@ -107,13 +111,29 @@ export default class UserLogin extends Vue {
    */
   async fireSignin() {
     this.inProgress = true;
-    let user: object = await fb.loginWithEmail(this.email, this.password);
-    if (user !== undefined) {
-      this.token.firebaseToken = user.G;
-      this.doneLogin();
-    } else {
+    let error = await fb.loginWithEmail(this.email, this.password);
+    if (error !== undefined) {
       this.onLoginError();
+    } else {
+      this.doneLogin();
+      this.getUserInfo();
     }
+  }
+
+  getUserInfo() {
+    let user = fb.firebaseAuth.currentUser;
+
+    if (user != null) {
+      user.getIdToken().then(token => {
+        this.token.netlifyToken = token;
+      });
+      this.name = user.displayName === null ? "" : user.displayName;
+      this.email = user.email === null ? "" : user.email;
+      this.photoUrl = user.photoURL;
+      this.emailVerified = user.emailVerified;
+      this.uid = user.uid;
+    }
+    console.log(this.email);
   }
   /**
    * After login, goto help page view

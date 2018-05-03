@@ -13,14 +13,14 @@
  * @providesModule firebaseSDK
  */
 
-import firebase from "firebase"
+import firebase from "firebase";
 
 /////////////////////////////////////////////////////////////////////////
 // Interface
 /////////////////////////////////////////////////////////////////////////
 
 interface fbUpdates {
-  [index: string]: any
+  [index: string]: any;
 }
 
 interface IFireDatabase extends firebase.database.Database {}
@@ -34,23 +34,23 @@ interface IFacebookProvider extends firebase.auth.FacebookAuthProvider {}
  * @interface INedbDatabasePool
  */
 export interface IFireDatabasePool extends CPWork.IDatabasePool {
-  [index: string]: IFireDatabaseRef
+  [index: string]: IFireDatabaseRef;
 }
 
 export interface IVuexFirebaseAdaptor extends CPWork.IVuexAdaptor {
-  userPath: string
-  pool: IFireDatabasePool
-  collections: string[]
-  current: string
-  dbInit(): any
-  dbCreate(collection: string): any
-  dbRemove(collection: string): any
-  dbOpen(collection: string): any
-  dbSetCurrent(collection: string): any
-  findItem(db: IFireDatabase, query: any, table: string): any
-  addItem(db: IFireDatabase, cleanPayload: any, table: string): any
-  updateItem(db: IFireDatabase, query: any, cleanPayload: any, table: string): any
-  removeItem(db: IFireDatabase, query: any, table: string): any
+  userPath: string;
+  pool: IFireDatabasePool;
+  collections: string[];
+  current: string;
+  dbInit(): any;
+  dbCreate(collection: string): any;
+  dbRemove(collection: string): any;
+  dbOpen(collection: string): any;
+  dbSetCurrent(collection: string): any;
+  findItem(db: IFireDatabase, query: any, table: string): any;
+  addItem(db: IFireDatabase, cleanPayload: any, table: string): any;
+  updateItem(db: IFireDatabase, query: any, cleanPayload: any, table: string): any;
+  removeItem(db: IFireDatabase, query: any, table: string): any;
 }
 
 /////////////////////////////////////////////////////////////////////////
@@ -65,7 +65,7 @@ export const config = {
   projectId: "cp-work",
   storageBucket: "cp-work.appspot.com",
   messagingSenderId: "714772306330",
-}
+};
 
 // var config = {
 //   apiKey: process.env.VUE_APP_FIREBASE_APIKEY,
@@ -92,68 +92,66 @@ export const config = {
 // Class
 /////////////////////////////////////////////////////////////////////////
 export class clsFirebase implements IVuexFirebaseAdaptor {
-  userPath: string
-  pool: IFireDatabasePool
-  collections: string[]
-  current: string
+  userPath: string;
+  pool: IFireDatabasePool;
+  collections: string[];
+  current: string;
 
-  private config: object
+  private config: object;
 
-  firebaseDb: IFireDatabase
-  firebaseAuth: firebase.auth.Auth
-  FacebookProvider: firebase.auth.FacebookAuthProvider
-  GithubProvider: firebase.auth.GithubAuthProvider
-  TwitterProvider: firebase.auth.TwitterAuthProvider
+  firebaseDb: IFireDatabase;
+  firebaseAuth: firebase.auth.Auth;
+  FacebookProvider: firebase.auth.FacebookAuthProvider;
+  GithubProvider: firebase.auth.GithubAuthProvider;
+  TwitterProvider: firebase.auth.TwitterAuthProvider;
 
   constructor(userPath: string, collections: string[], config: object) {
-    this.config = config
-    this.collections = collections
-    this.userPath = userPath
-    this.pool = {}
+    this.config = config;
+    this.collections = collections;
+    this.userPath = userPath;
+    this.pool = {};
   }
 
   dbInit() {
     // 初始化应用
-    firebase.initializeApp(this.config)
+    firebase.initializeApp(this.config);
     // 初始化验证+数据库
-    this.firebaseDb = firebase.database()
-    this.firebaseAuth = firebase.auth()
-    this.FacebookProvider = new firebase.auth.FacebookAuthProvider()
-    this.GithubProvider = new firebase.auth.GithubAuthProvider()
-    this.TwitterProvider = new firebase.auth.TwitterAuthProvider()
+    this.firebaseDb = firebase.database();
+    this.firebaseAuth = firebase.auth();
+    this.FacebookProvider = new firebase.auth.FacebookAuthProvider();
+    this.GithubProvider = new firebase.auth.GithubAuthProvider();
+    this.TwitterProvider = new firebase.auth.TwitterAuthProvider();
   }
 
   dbCreate(collection: string) {
-    this.pool[collection] = this.firebaseDb.ref(collection)
+    this.pool[collection] = this.firebaseDb.ref(collection);
   }
 
   dbRemove(collection: string): any {}
 
   dbOpen(collection: string): IFireDatabaseRef {
-    return this.pool[collection]
+    return this.pool[collection];
   }
 
   dbSetCurrent(collection: string): any {
-    this.current = collection || "db"
+    this.current = collection || "db";
   }
 
   async loginWithProvider(provider: any) {
-    let result = await this.firebaseAuth.signInWithPopup(provider)
-    let { token, secret } = result.credential
-    let user = result.user
+    let result = await this.firebaseAuth.signInWithPopup(provider);
+    let { token, secret } = result.credential;
+    let user = result.user;
     return new Promise((resolve, _) => {
-      resolve({ user, token, secret })
-    })
+      resolve({ user, token, secret });
+    });
   }
+
   async loginWithEmail(email: string, password: string) {
-    let e = email || "xingwenju@gmail.com"
-    let p = password || "tswc0916"
-    let user = await this.firebaseAuth.signInWithEmailAndPassword(e, p)
-    return new Promise((resolve, _) => {
-      console.log("Logged in as " + user.email)
-      console.log("The code is " + user.G)
-      resolve(user)
-    })
+    this.firebaseAuth.signInWithEmailAndPassword(email, password).catch(error => {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    });
   }
 
   async addItem(db: IFireDatabase, cleanPayload: any, table: string) {
@@ -163,11 +161,11 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
     let key = await db
       .ref()
       .child(table)
-      .push().key
-    let snapshot = await db.ref(table + "/" + key).set(cleanPayload)
+      .push().key;
+    let snapshot = await db.ref(table + "/" + key).set(cleanPayload);
     return new Promise((resolve, reject) => {
-      resolve(snapshot)
-    })
+      resolve(snapshot);
+    });
   }
 
   /*
@@ -177,12 +175,12 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
   async updateItem(db: IFireDatabase, query: any, cleanPayload: any, table: string) {
     // data = {id:, name:, age:,}
     // read will return {key: 12345, value: {name:, age:,}
-    let updates: fbUpdates = {}
-    updates[table + "/" + cleanPayload.uniKey] = cleanPayload
-    let snapshot = await db.ref().update(updates)
+    let updates: fbUpdates = {};
+    updates[table + "/" + cleanPayload.uniKey] = cleanPayload;
+    let snapshot = await db.ref().update(updates);
     return new Promise((resolve, reject) => {
-      resolve(snapshot)
-    })
+      resolve(snapshot);
+    });
   }
 
   /*
@@ -190,11 +188,11 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
                                                  * remove value
                                                  */
   async removeItem(db: IFireDatabase, query: any, table: string) {
-    if (query !== undefined) table = table + "/" + query.uniKey
-    let snapshot = await db.ref(table + "/" + query.uniKey).remove()
+    if (query !== undefined) table = table + "/" + query.uniKey;
+    let snapshot = await db.ref(table + "/" + query.uniKey).remove();
     return new Promise((resolve, reject) => {
-      resolve(snapshot)
-    })
+      resolve(snapshot);
+    });
   }
 
   /*
@@ -203,16 +201,16 @@ export class clsFirebase implements IVuexFirebaseAdaptor {
   async findItem(db: IFireDatabase, query: any, table: string) {
     // using key to read will keep consistency of set and update
     // return {key: 12345, value: {name:, age:,}
-    if (query !== undefined) table = table + "/" + query.uniKey
-    let snapshot = await db.ref(table).once("value")
+    if (query !== undefined) table = table + "/" + query.uniKey;
+    let snapshot = await db.ref(table).once("value");
     return new Promise((resolve, reject) => {
-      resolve(snapshot)
-    })
+      resolve(snapshot);
+    });
   }
 }
 
-export const fb = new clsFirebase("", ["user"], config)
-fb.dbInit()
+export const fb = new clsFirebase("", ["user"], config);
+fb.dbInit();
 
-const db = fb.firebaseDb
-export default db
+const db = fb.firebaseDb;
+export default db;
