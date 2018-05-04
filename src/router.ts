@@ -6,6 +6,7 @@ import Welcome from "./views/Welcome.vue";
 import Apollo from "./views/Apollo.vue";
 import User from "./views/User.vue";
 import Document from "./views/Document.vue";
+import Writer from "./views/Writer.vue";
 import Database from "./views/Database.vue";
 import Help from "./views/Help.vue";
 import Login from "./views/Login.vue";
@@ -42,6 +43,16 @@ export default new Router({
       path: "/document/:page",
       name: "document-page",
       component: Document,
+    },
+    {
+      path: "/writer/:page",
+      name: "writer-page",
+      component: Writer,
+    },
+    {
+      path: "/writer/:page/:id",
+      name: "writer-page-id",
+      component: Writer,
     },
     {
       path: "/database",

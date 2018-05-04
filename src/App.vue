@@ -158,12 +158,22 @@ export default class App extends Vue {
       },
       {
         icon: "keyboard",
-        text: "文档",
+        text: "日程",
         "icon-alt": "keyboard",
         children: [
           { icon: "add", text: "列表", to: "/document/table" },
           { icon: "add", text: "卡片", to: "/document/card" },
           { icon: "add", text: "简历", to: "/document/profile" },
+        ],
+      },
+      {
+        icon: "keyboard",
+        text: "写作",
+        "icon-alt": "keyboard",
+        children: [
+          { icon: "add", text: "作业清单", to: "/writer/table" },
+          { icon: "add", text: "作业卡", to: "/writer/board" },
+          { icon: "add", text: "作业信息", to: "/writer/info" },
         ],
       },
       // { icon: "history", text: "Apollo", to: "/apollo" },

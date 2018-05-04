@@ -1,4 +1,4 @@
-export const collections = ["db", "config", "document", "user"];
+export const collections = ["db", "config", "document", "writer", "todo", "im", "user"];
 
 export const defaultUser: CPWork.IDiplomat = {
   序号: "1",
@@ -19,7 +19,7 @@ export const defaultUser: CPWork.IDiplomat = {
   到馆时间: "2016-04-09",
   离馆时间: "2020-04-08",
   出国前单位: "外交部",
-  备注: "无"
+  备注: "无",
 };
 
 export const defaultDocument: CPWork.IDiplomaticDocument = {
@@ -29,12 +29,21 @@ export const defaultDocument: CPWork.IDiplomaticDocument = {
   主送机关: "机构",
   发文代码: "",
   事由: "开发国际机构管理系统",
-  主题词: "vue"
+  主题词: "vue",
+};
+
+export const defaultWriterWork = {
+  序号: "1",
+  标题: "东东社会调查作业",
+  正文: "日本介绍",
+  日期: "2018-5-1",
+  作者: "邢潇睿",
+  标签: "SS",
 };
 
 export const UserInitOptions: CPWork.IUser = {
   姓名: "xing wenju",
-  性别: "male"
+  性别: "male",
 };
 
 export const DocumentInitOptions = {
@@ -44,13 +53,13 @@ export const DocumentInitOptions = {
   主送机关: "",
   发文代码: "",
   事由: "",
-  主题词: ""
+  主题词: "",
 };
 
 export const BookmarkInitOptions = {
   名称: "",
   链接: "",
-  标签: ""
+  标签: "",
 };
 
 export class userModel implements Diplomat {

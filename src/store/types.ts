@@ -20,6 +20,7 @@ export const aCreate = "actionCreate",
 export const nsDatabase = "Database";
 export const nsUser = "User";
 export const nsDocument = "Document";
+export const nsWriter = "Writer";
 export const nsBookmark = "Bookmark";
 export const nsAccount = "Account";
 export const nsNote = "Note";

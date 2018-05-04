@@ -11,6 +11,7 @@ dbInit();
 import User from "./modules/User";
 import Database from "./modules/Database";
 import Document from "./modules/Document";
+import Writer from "./modules/Writer";
 import plugins from "./plugin";
 
 import Base from "@/store/modules/Base";
@@ -40,6 +41,7 @@ export default new Vuex.Store({
   modules: {
     User,
     Database,
+    Writer,
     Document,
   },
   getters: {
