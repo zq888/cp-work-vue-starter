@@ -18,29 +18,55 @@
             ></v-card-media>
           </v-flex>
         </v-layout>
-        <v-layout color="white" row>
-          <v-flex xs4>
-            <v-card color="blue-grey darken-2" class="white--text">
-            <div>
-              <div class="title">到馆日期:{{activeItem["到馆时间"]}}</div>
-              <div class="title">离馆日期:{{activeItem["离馆时间"]}}</div>
-            </div>
+        <v-layout color="white" row fluid wrap>
+          <v-flex xs12>
+            <v-card color="purple darken-1" class="white--text">
+            <v-card-title>
+              <div >对外身份</div>
+            </v-card-title>
+            <v-card-text>
+              <div >{{activeItem["对外身份"]}}</div>
+            </v-card-text>
             </v-card>
           </v-flex>
-          <v-flex xs4>
-            <v-card color="blue-grey darken-2" class="white--text">
-            <div>
-              <div class="title">{{activeItem["学历"]}}</div>
-              <div class="title">{{activeItem["部门"]}}</div>
-            </div>
+          <v-flex xs6>
+            <v-card color="purple darken-1" class="white--text">
+            <v-card-title>
+              <div >学历</div>
+            </v-card-title>
+            <v-card-text>
+              <div >{{activeItem["学历"]}}</div>
+            </v-card-text>
             </v-card>
           </v-flex>
-          <v-flex xs4>
-            <v-card color="blue-grey darken-2" class="white--text">
-            <div>
-              <div class="title">{{activeItem["对外身份"]}}</div>
-              <div class="title">{{activeItem["对内身份"]}}</div>
-            </div>
+          <v-flex xs6>
+            <v-card color="purple darken-1" class="white--text">
+            <v-card-title>
+              <div >民族</div>
+            </v-card-title>
+            <v-card-text>
+              <div >{{activeItem["民族"]}}</div>
+            </v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs6>
+            <v-card color="purple darken-1" class="white--text">
+            <v-card-title>
+              <div >到馆日期</div>
+            </v-card-title>
+            <v-card-text>
+              <div >{{activeItem["到馆时间"]}}</div>
+            </v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs6>
+            <v-card color="purple darken-1" class="white--text">
+            <v-card-title>
+              <div >离馆日期</div>
+            </v-card-title>
+            <v-card-text>
+              <div >{{activeItem["离馆时间"]}}</div>
+            </v-card-text>
             </v-card>
           </v-flex>
         </v-layout>

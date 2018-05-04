@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs10 offset-xs1>
+    <v-flex xs12>
     <!-- {{$route.params.page}} -->
     <UserTable v-if="$route.params.page === 'table'" />
     <UserCard v-if="$route.params.page === 'card'" />
@@ -28,8 +28,8 @@ import { Prop, Watch, Component, Vue } from "vue-property-decorator";
     UserCard,
     UserGrid,
     UserInfo,
-    StatusBar
-  }
+    StatusBar,
+  },
 })
 export default class User extends Vue {}
 </script>

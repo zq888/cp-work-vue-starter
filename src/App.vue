@@ -14,12 +14,12 @@
             align-center
             :key="item.heading"
           >
-            <v-flex xs6>
+            <v-flex xs6 md1 >
               <v-subheader v-if="item.heading">
                 {{ item.heading }}
               </v-subheader>
             </v-flex>
-            <v-flex xs6 class="text-xs-center">
+            <v-flex xs6 md1 class="text-xs-center">
               <a href="#!" class="body-2 black--text">EDIT</a>
             </v-flex>
           </v-layout>
@@ -90,7 +90,6 @@
       <v-btn icon @click="navigate('/about')">
         <v-icon>notifications</v-icon>
       </v-btn>
-      <NavigationBar condition="token.firebaseToken !== '' || token.netlifyToken !==''" />
       <v-btn icon v-if="token.firebaseToken !== '' || token.netlifyToken !==''">
         <v-avatar size="24px" tile>
           <img

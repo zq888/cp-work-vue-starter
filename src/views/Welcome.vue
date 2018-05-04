@@ -19,13 +19,13 @@ export default class About extends Vue {
       src: "https://vuepress.vuejs.org/hero.png",
     },
     {
-      src: "https://vuepress.vuejs.org/hero.png",
+      src: "https://vuetifyjs.com/static/doc-images/cards/halcyon.png",
     },
     {
       src: "https://vuepress.vuejs.org/hero.png",
     },
     {
-      src: "https://vuepress.vuejs.org/hero.png",
+      src: "https://vuetifyjs.com/static/doc-images/cards/halcyon.png",
     },
   ];
 }

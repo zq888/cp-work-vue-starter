@@ -1,6 +1,6 @@
 <template>
     <v-layout row wrap>
-      <v-flex>
+      <v-flex xs12>
         <DocumentCard v-if="$route.params.page === 'card'"/>
         <DocumentTable v-if="$route.params.page === 'table'"/>
       </v-flex>
@@ -17,8 +17,8 @@ import { Prop, Watch, Component, Vue } from "vue-property-decorator";
 @Component({
   components: {
     DocumentTable,
-    DocumentCard
-  }
+    DocumentCard,
+  },
 })
 export default class Document extends Vue {
   pages: string[] = ["table", "card", "profile", "grid"];

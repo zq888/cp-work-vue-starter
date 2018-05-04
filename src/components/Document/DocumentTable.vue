@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <v-layout justify-center>
+    <v-flex xs12>
     <v-btn @click="addItem" color="primary" dark slot="activator" class="mb-2">New</v-btn>
     <v-dialog v-model="dialog" width="80%">
       <v-card>
@@ -37,7 +38,8 @@
         </td>
       </template>
     </v-data-table>
-  </div>
+    </v-flex>
+  </v-layout>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
@@ -49,7 +51,7 @@ import { defaultDocument } from "@/store/Model/BaseModel";
 const nsDocument = { namespace: types.nsDocument };
 
 @Component({
-  components: { DocumentInfo }
+  components: { DocumentInfo },
 })
 export default class DocumentTable extends Vue {
   // Props
