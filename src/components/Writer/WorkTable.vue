@@ -1,6 +1,6 @@
 <template>
   <v-layout fluid wrap>
-    <v-flex xs12 sm12> 
+    <v-flex xs12 sm12>
       <v-toolbar color="purple" dark>
         <v-toolbar-side-icon></v-toolbar-side-icon>
         <v-toolbar-title>作业清单</v-toolbar-title>
@@ -11,7 +11,7 @@
       </v-toolbar>
       <v-list two-line>
         <template v-for="(item, index) in items">
-          <v-list-tile avatar ripple :key="index" @click="editItem(item)">
+          <v-list-tile avatar ripple :key="item._id" @click="editItem(item)">
             <v-list-tile-content>
               <v-list-tile-title>{{ item["标题"] }}</v-list-tile-title>
               <v-list-tile-sub-title class="text--primary">{{ item["作者"] }}</v-list-tile-sub-title>

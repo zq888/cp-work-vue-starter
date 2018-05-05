@@ -15,7 +15,11 @@
                     alt=""
                   >
                 </v-avatar>
-                <v-text-field v-model="title" placeholder="标题" ></v-text-field>
+                <v-text-field
+                  name="标题"
+                  :value="activeItem['标题']"
+                  @input.native="setValue($event)"
+                  placeholder="标题" ></v-text-field>
               </v-layout>
             </v-flex>
             <v-flex xs12 align-center justify-space-between>
@@ -24,7 +28,9 @@
                   <v-icon class="material-icon">create</v-icon>
                 </v-avatar>
                 <v-text-field
-                  v-model="writer"
+                  name="作者"
+                  :value="activeItem['作者']"
+                  @input.native="setValue($event)"
                   placeholder="作者姓名"
                 ></v-text-field>
               </v-layout>
@@ -35,25 +41,29 @@
                   <v-icon class="material-icon">alarm</v-icon>
                 </v-avatar>
                 <v-text-field
-                  v-model="createdDate"
+                  name="日期"
+                  :value="activeItem['日期']"
+                  @input.native="setValue($event)"
                   placeholder="日期"
                 ></v-text-field>
               </v-layout>
             </v-flex>
             <v-flex xs12>
               <v-text-field
+                prepend-icon="notes"
                 rows=20
                 clearable
                 multi-line
-                v-model="content"
-                prepend-icon="notes"
+                name="正文"
+                :value="activeItem['正文']"
+                @input.native="setValue($event)"
                 placeholder="内容"
               ></v-text-field>
             </v-flex>
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn flat @click="addItem">Save</v-btn>
+          <v-btn flat @click="saveItem">{{ editing ? "Update" : "Save" }}</v-btn>
           <v-btn flat color="primary" @click="clearItem">Cancel</v-btn>
         </v-card-actions>
       </v-card>
@@ -107,9 +117,12 @@ export default class WorkBoard extends Vue {
   }
 
   created() {
-    this.asyncActiveItem();
+    if (this.$route.params.editing === "true") {
+      this.editing = true;
+    } else {
+      this.editing = false;
+    }
   }
-  mounted() {}
 
   asyncActiveItem() {
     this.title = this.activeItem["标题"];
@@ -124,27 +137,13 @@ export default class WorkBoard extends Vue {
 
   clearItem() {}
 
-  addItem() {
+  saveItem() {
     if (this.$route.params.editing === "true") {
-      let newItem = {
-        _id: this.$route.params.id,
-        标题: this.title,
-        正文: this.content,
-        日期: this.createdDate,
-        作者: this.writer,
-        标签: "SS",
-      };
-      this.updateItem(newItem);
+      this.updateItem(this.activeItem);
     } else {
-      let newItem = {
-        标题: this.title,
-        正文: this.content,
-        日期: this.createdDate,
-        作者: this.writer,
-        标签: "SS",
-      };
-      this.createItem(newItem);
+      this.createItem(this.activeItem);
     }
+    this.setActive(defaultWriterWork);
     this.navigate("");
   }
 }

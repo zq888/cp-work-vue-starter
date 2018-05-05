@@ -145,7 +145,7 @@ export default class App extends Vue {
 
     this.drawer = false;
     this.items = [
-      { icon: "phonelink", text: "欢迎", to: "/" },
+      { icon: "home", text: "欢迎", to: "/" },
       {
         icon: "contacts",
         text: "人员",
@@ -157,9 +157,19 @@ export default class App extends Vue {
         ],
       },
       {
-        icon: "keyboard",
+        icon: "folder_open",
+        text: "文件",
+        "icon-alt": "folder_open",
+        children: [
+          { icon: "add", text: "列表", to: "/document/table" },
+          { icon: "add", text: "卡片", to: "/document/card" },
+          { icon: "add", text: "简历", to: "/document/profile" },
+        ],
+      },
+      {
+        icon: "event",
         text: "日程",
-        "icon-alt": "keyboard",
+        "icon-alt": "event",
         children: [
           { icon: "add", text: "列表", to: "/document/table" },
           { icon: "add", text: "卡片", to: "/document/card" },
