@@ -1,9 +1,13 @@
 <template>
   <form>
-    {{editing ? " 你在进行编辑更新" : "你在添加模式"}}
+    {{editing ? "你在进行编辑更新" : "你在添加模式"}}
     <v-text-field
-      v-for="v, k in activeItem" v-bind:key="v._id" v-bind:label="k"
-      v-bind:name="k" v-bind:id="k" v-bind:value="v"
+      v-for="v, k in activeItem"
+      v-bind:key="v._id"
+      v-bind:label="k"
+      v-bind:name="k"
+      v-bind:id="k"
+      v-bind:value="v"
       @input.native="setValue($event)"
       required
     ></v-text-field>

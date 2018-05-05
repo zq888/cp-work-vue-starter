@@ -1,9 +1,13 @@
 <template>
       <v-card>
         <v-card-title
-          class="grey lighten-4 py-4 title"
+          class="grey lighten-4 py-4 headline"
         >
-          添加文章或日志
+        添加文章或日志
+        <v-divider></v-divider>
+        <div class="title">
+        {{editing ? "你在进行编辑更新" : "你在添加模式"}}
+        </div>
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
