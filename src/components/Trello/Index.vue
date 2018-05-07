@@ -1,22 +1,18 @@
 <template>
   <v-layout fluid wrap>
-    <div class="title">任务清单</div>
-    <v-flex xs12 sm3 :key="item._id" v-for="(item, index) in items">
+    <v-flex xs12 sm6 :key="item._id" v-for="(item, index) in items">
       <v-toolbar color="purple" dark>
-        <v-toolbar-side-icon></v-toolbar-side-icon>
-        <v-toolbar-title>任务清单</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>search</v-icon>
-        </v-btn>
+        <v-toolbar-title>
+          <a :href="item.shortUrl" class="white--text">{{item.name}}</a>
+        </v-toolbar-title>
       </v-toolbar>
       <v-list two-line>
         <template>
           <v-list-tile avatar ripple @click="editItem(item)">
             <v-list-tile-content>
-              <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-              <v-list-tile-sub-title class="text--primary">{{ item.id }}</v-list-tile-sub-title>
-              <v-list-tile-sub-title>{{ item.shortUrl }}</v-list-tile-sub-title>
+              <v-list-tile-title class="title">
+                <a :href="item.shortUrl">{{item.id}}</a>
+              </v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
               <v-icon color="grey lighten-1">add</v-icon>
@@ -38,6 +34,7 @@ import { defaultWriterWork } from "@/store/Model/BaseModel";
 const nsTrello = { namespace: types.nsTrello };
 
 import clsTrello from "@/store/api/TrelloSDK";
+const trello = new clsTrello();
 
 @Component
 export default class TrelloTable extends Vue {
@@ -84,8 +81,7 @@ export default class TrelloTable extends Vue {
   }
 
   fetch() {
-    const trello = new clsTrello();
-    let { error, result } = trello.client.getBoards("me", (error: any, result: any[]) => {
+    trello.client.getBoards("me", (error: any, result: any[]) => {
       if (error) {
         console.log(error);
       } else {
@@ -99,10 +95,10 @@ export default class TrelloTable extends Vue {
   }
 
   editItem(item: any) {
-    this.editing = true;
-    this.setActive(item);
-    this.navigate({ id: item._id, page: "board", editing: "true" });
-    this.dialog = true;
+    // this.editing = true;
+    // this.setActive(item);
+    // this.navigate({ id: item._id, page: "board", editing: "true" });
+    // this.dialog = true;
   }
 }
 </script>
