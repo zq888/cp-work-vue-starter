@@ -1,17 +1,17 @@
 <template>
   <v-layout fluid wrap>
-    <v-flex xs12 sm6 :key="item.id" v-for="(item, index) in items">
-      <v-toolbar color="purple" dark>
+    <v-flex xs12 sm6 :key="card._id" v-for="(card, index) in card">
+      <v-toolbar color="blue" dark>
         <v-toolbar-title>
-          <a :href="item.shortUrl" class="white--text">{{item.name}}</a>
+          <a :href="item.shortUrl" class="white--text">{{card.name}}</a>
         </v-toolbar-title>
       </v-toolbar>
       <v-list two-line>
         <template>
-          <v-list-tile avatar ripple @click="editItem(item)">
+          <v-list-tile avatar ripple @click="editItem(card)">
             <v-list-tile-content>
-              <v-list-tile-title @click="editItem(item)" class="title">
-                {{item.name}}
+              <v-list-tile-title class="title">
+                <a :href="card.shortUrl">{{card.id}}</a>
               </v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
@@ -38,23 +38,26 @@ const trello = new clsTrello();
 
 @Component
 export default class TrelloTable extends Vue {
-  // Props
-  items: any[];
+  // State
+  boardId: string = "";
+  cards: any[];
+
   constructor() {
     super();
-    this.items = [];
+    this.cards = [];
   }
 
   created() {
+    this.boardId = this.$route.params.id;
     this.fetch();
   }
 
   fetch() {
-    trello.client.getBoards("me", (error: any, result: any[]) => {
+    trello.client.getCardsOnBoard(this.boardId, (error: any, result: any[]) => {
       if (error) {
         console.log(error);
       } else {
-        this.items = result;
+        this.cards = result;
       }
     });
   }
@@ -64,7 +67,10 @@ export default class TrelloTable extends Vue {
   }
 
   editItem(item: any) {
-    this.navigate({ id: item.id, page: "board", editing: "true" });
+    // this.editing = true;
+    // this.setActive(item);
+    // this.navigate({ id: item._id, page: "board", editing: "true" });
+    // this.dialog = true;
   }
 }
 </script>

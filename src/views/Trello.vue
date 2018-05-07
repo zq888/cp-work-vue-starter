@@ -2,7 +2,8 @@
   <v-layout row wrap>
     <v-flex xs12 sm8 offset-sm2>
     <!-- {{$route.params.page}} -->
-    <Trello />
+    <Trello v-show="$route.params.page==='board'"/>
+    <Trello v-show="$route.params.page==='team'"/>
     </v-flex>
   </v-layout>
 </template>
