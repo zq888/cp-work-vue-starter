@@ -169,10 +169,11 @@ export default class App extends Vue {
         icon: "event",
         text: "日程",
         "icon-alt": "event",
+        to: "/trello",
         children: [
-          { icon: "add", text: "列表", to: "/document/table" },
-          { icon: "add", text: "卡片", to: "/document/card" },
-          { icon: "add", text: "简历", to: "/document/profile" },
+          { icon: "add", text: "小组", to: "/trello/team" },
+          { icon: "add", text: "任务板", to: "/document/board" },
+          { icon: "add", text: "项目", to: "/document/item" },
         ],
       },
       {

@@ -79,6 +79,11 @@ export default new Router({
       component: Trello,
     },
     {
+      path: "/trello/:page",
+      name: "trello-page",
+      component: Trello,
+    },
+    {
       path: "/help",
       name: "help",
       component: Help,

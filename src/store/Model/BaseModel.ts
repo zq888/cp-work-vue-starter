@@ -1,4 +1,4 @@
-export const collections = ["db", "config", "document", "writer", "todo", "im", "user"];
+export const collections = ["db", "config", "document", "writer", "trello", "im", "user"];
 
 export const defaultUser: CPWork.IDiplomat = {
   序号: "1",

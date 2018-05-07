@@ -17,8 +17,8 @@ Vue.use(Vuetify, {
     error: colors.red.accent3,
   },
 });
-// import VueMDCAdapter from "vue-mdc-adapter";
-// Vue.use(VueMDCAdapter);
+import VueMDCAdapter from "vue-mdc-adapter";
+Vue.use(VueMDCAdapter);
 
 Vue.config.productionTip = false;
 

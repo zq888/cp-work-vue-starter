@@ -14,6 +14,7 @@ module.exports = {
 
   configureWebpack: config => {
     // config.target = "electron-renderer";
+    config.target = "web";
   },
 
   pluginOptions: {},
