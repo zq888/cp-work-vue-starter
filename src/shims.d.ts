@@ -5,6 +5,7 @@ declare module "*.vue" {
 
 declare module "netlify-auth-providers";
 declare module "vue-mdc-adapter";
+declare module "trello";
 
 declare namespace CPWork {
   /**

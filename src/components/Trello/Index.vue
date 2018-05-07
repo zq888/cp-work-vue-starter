@@ -14,9 +14,9 @@
         <template>
           <v-list-tile avatar ripple @click="editItem(item)">
             <v-list-tile-content>
-              <v-list-tile-title>{{ item["标题"] }}</v-list-tile-title>
-              <v-list-tile-sub-title class="text--primary">{{ item["作者"] }}</v-list-tile-sub-title>
-              <v-list-tile-sub-title>{{ item["正文"] }}</v-list-tile-sub-title>
+              <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+              <v-list-tile-sub-title class="text--primary">{{ item.id }}</v-list-tile-sub-title>
+              <v-list-tile-sub-title>{{ item.shortUrl }}</v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action>
               <v-icon color="grey lighten-1">add</v-icon>
@@ -37,6 +37,8 @@ import * as types from "@/store/types";
 import { defaultWriterWork } from "@/store/Model/BaseModel";
 const nsTrello = { namespace: types.nsTrello };
 
+import clsTrello from "@/store/api/TrelloSDK";
+
 @Component
 export default class TrelloTable extends Vue {
   // Props
@@ -48,7 +50,7 @@ export default class TrelloTable extends Vue {
   // State
   @State("activeItem", nsTrello)
   activeItem: object;
-  @State("items", nsTrello)
+  // @State("items", nsTrello)
   items: any[];
   @State("filterKey") globalFilterKey: string;
   // Getters
@@ -74,6 +76,22 @@ export default class TrelloTable extends Vue {
     this.dialog = false;
     this.editing = false;
     this.headers = [];
+    this.items = [];
+  }
+
+  created() {
+    this.fetch();
+  }
+
+  fetch() {
+    const trello = new clsTrello();
+    let { error, result } = trello.client.getBoards("me", (error: any, result: any[]) => {
+      if (error) {
+        console.log(error);
+      } else {
+        this.items = result;
+      }
+    });
   }
 
   navigate(payload: any) {
