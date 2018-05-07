@@ -14,16 +14,16 @@ Vue.use(Vuetify, {
     primary: colors.purple.base,
     secondary: colors.grey.darken1,
     accent: colors.shades.black,
-    error: colors.red.accent3
-  }
+    error: colors.red.accent3,
+  },
 });
-// import { apolloProvider } from "./vue-apollo";
+// import VueMDCAdapter from "vue-mdc-adapter";
+// Vue.use(VueMDCAdapter);
 
 Vue.config.productionTip = false;
 
 new Vue({
-  // provide: apolloProvider.provide(),
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount("#app");

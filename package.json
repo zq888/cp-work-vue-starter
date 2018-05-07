@@ -20,6 +20,7 @@
     "papaparse": "^4.4.0",
     "vue": "^2.5.13",
     "vue-class-component": "^6.0.0",
+    "vue-mdc-adapter": "^0.15.3",
     "vue-property-decorator": "^6.0.0",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.0",
@@ -47,14 +48,27 @@
     "vue-template-compiler": "^2.5.13",
     "vuepress": "^0.8.3"
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": ["vue-cli-service lint", "git add"],
-    "*.ts": ["vue-cli-service lint", "git add"],
-    "*.vue": ["vue-cli-service lint", "git add"]
+    "*.js": [
+      "vue-cli-service lint",
+      "git add"
+    ],
+    "*.ts": [
+      "vue-cli-service lint",
+      "git add"
+    ],
+    "*.vue": [
+      "vue-cli-service lint",
+      "git add"
+    ]
   },
   "electronWebpack": {
     "renderer": {
@@ -65,6 +79,10 @@
     "directories": {
       "output": "dist_electron"
     },
-    "files": ["dist/**/*", "node_modules/**/*", "package.json"]
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ]
   }
 }

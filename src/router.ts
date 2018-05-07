@@ -1,11 +1,26 @@
 import Vue from "vue";
 import Router from "vue-router";
+
+// const routes = {
+//     Home: require("./views/Home.vue"),
+//     About: require("./views/About.vue"),
+//     Welcome: require("./views/Welcome.vue"),
+//     User: require("./views/User.vue"),
+//     Document: require("./views/Document.vue"),
+//     Writer: require("./views/Writer.vue"),
+//     Trello: require("./views/Trello.vue"),
+//     Database: require("./views/Database.vue"),
+//     Help: require("./views/Help.vue"),
+//     Login: require("./views/Login.vue"),
+// };
+
 import Home from "./views/Home.vue";
 import About from "./views/About.vue";
 import Welcome from "./views/Welcome.vue";
 import User from "./views/User.vue";
 import Document from "./views/Document.vue";
 import Writer from "./views/Writer.vue";
+import Trello from "./views/Trello.vue";
 import Database from "./views/Database.vue";
 import Help from "./views/Help.vue";
 import Login from "./views/Login.vue";
@@ -57,6 +72,11 @@ export default new Router({
       path: "/database",
       name: "database",
       component: Database,
+    },
+    {
+      path: "/trello",
+      name: "trello",
+      component: Trello,
     },
     {
       path: "/help",

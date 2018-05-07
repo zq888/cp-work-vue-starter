@@ -13,7 +13,7 @@ module.exports = {
   },
 
   configureWebpack: config => {
-    config.target = "electron-renderer";
+    // config.target = "electron-renderer";
   },
 
   pluginOptions: {},
