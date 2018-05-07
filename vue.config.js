@@ -9,15 +9,12 @@ module.exports = {
     proxy: null, // string | Object
     before: app => {
       // app is an express instance
-    }
+    },
   },
 
   configureWebpack: config => {
-    // config.target = "electron-renderer";
+    config.target = "electron-renderer";
   },
 
-  pluginOptions: {
-    graphqlMock: true,
-    apolloEngine: false
-  }
+  pluginOptions: {},
 };

@@ -28,3 +28,4 @@ live/
 
 # Compiled Lambda functions
 /lambda/
+*.stackdump

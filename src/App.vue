@@ -69,7 +69,6 @@
       color="purple darken-3"
       dark
       app
-      :clipped-left="$vuetify.breakpoint.lgAndUp"
       fixed
     >
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
