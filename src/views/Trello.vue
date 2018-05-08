@@ -2,22 +2,24 @@
   <v-layout row wrap>
     <v-flex xs12 sm8 offset-sm2>
     <!-- {{$route.params.page}} -->
-    <Trello v-show="$route.params.page==='board'"/>
-    <Trello v-show="$route.params.page==='team'"/>
+    <TrelloIndex v-if="$route.params.page === 'index'"/>
+    <TrelloBoard v-if="$route.params.page === 'board'"/>
     </v-flex>
   </v-layout>
 </template>
 
 <script lang="ts">
 // @ is an alias to /src
-import Trello from "@/components/Trello/Index.vue";
+import TrelloIndex from "@/components/Trello/Index.vue";
+import TrelloBoard from "@/components/Trello/Board.vue";
 
 import { Prop, Watch, Component, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
-    Trello,
+    TrelloIndex,
+    TrelloBoard,
   },
 })
-export default class User extends Vue {}
+export default class Trello extends Vue {}
 </script>
