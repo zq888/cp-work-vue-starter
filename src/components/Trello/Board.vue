@@ -1,28 +1,35 @@
 <template>
-  <v-layout fluid wrap>
-    <v-flex xs12 sm4 :key="card.id" v-for="card in cards">
-      <v-toolbar color="purple darken-3" dark>
+  <v-layout fluid wrap color="purple">
+    <v-flex xs12 sm4 :key="list.id" v-for="list in lists">
+      <v-toolbar color="purple darken-3">
         <v-toolbar-title>
-          <a class="white--text">{{card.name}}</a>
+          <a class="white--text">{{list.name}}</a>
         </v-toolbar-title>
       </v-toolbar>
-      <form>
-            <v-text-field
-            name="name"
-            :value="card.name"
-            required >
-            </v-text-field>
-            <v-text-field
-            name="desc"
-            :value="card.desc"
-            required >
-            </v-text-field>
-            <v-text-field
-            name="due"
-            :value="card.due"
-            required >
-            </v-text-field>
-      </form>
+      <v-list>
+        <v-form :key="card.id" v-for="card in cards" v-if="card.idList === list.id">
+          <v-text-field :value="card.name"></v-text-field>
+        </v-form>
+        <v-form v-show="newTodoInputShow === true">
+          <v-text-field 
+          v-show="newTodoInputShow" 
+          v-model="newTodo" 
+          placeholder="为这张卡片输入标题"></v-text-field>
+          <v-layout align-center>
+            <v-btn class="accent" @click="addItem({todo: newTodo, listId: list.id})">
+              添加卡片
+            </v-btn>
+            <v-avatar size="40px" class="mr-3">
+              <v-icon color="accent">minus</v-icon>
+            </v-avatar>
+          </v-layout>
+        </v-form>
+        <v-layout align-center>
+          <v-btn class="primary" @click="newTodoInputShow = true">
+            添加新的卡片
+          </v-btn>
+        </v-layout>
+      </v-list>
     </v-flex>
   </v-layout>
 </template>
@@ -41,36 +48,16 @@ const trello = new clsTrello();
 @Component
 export default class TrelloBoard extends Vue {
   // State
+  lists: any[];
   cards: any[];
-  // Properties
-  checkItemStates: string = "";
-  closed: string = "";
-  dateLastActivity: string = "";
-  desc: string = "";
-  descData: string = "";
-  due: string = "";
-  dueComplete: string = "";
-  id: string = "";
-  idAttachmentCover: string = "";
-  idBoard: string = "";
-  idChecklists: string = "";
-  idLabels: string = "";
-  idList: string = "";
-  idMembers: string = "";
-  idMembersVoted: string = "";
-  idShort: string = "";
-  labels: string = "";
-  manualCoverAttachment: string = "";
-  name: string = "";
-  pos: string = "";
-  shortLink: string = "";
-  shortUrl: string = "";
-  subscribed: string = "";
-  url: string = "";
+
+  newTodoInputShow: boolean = false;
+  newTodo: string = "";
 
   constructor() {
     super();
     this.cards = [];
+    this.lists = [];
   }
 
   created() {
@@ -78,6 +65,14 @@ export default class TrelloBoard extends Vue {
   }
 
   fetch() {
+    trello.client.getListsOnBoard(this.$route.params.id, (error: any, result: any[]) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(result);
+        this.lists = result;
+      }
+    });
     trello.client.getCardsOnBoard(this.$route.params.id, (error: any, result: any[]) => {
       if (error) {
         console.log(error);
@@ -92,11 +87,17 @@ export default class TrelloBoard extends Vue {
     this.$router.push({ name: "trello-page", params: payload });
   }
 
-  editItem(item: any) {
-    // this.editing = true;
-    // this.setActive(item);
-    // this.navigate({ id: item._id, page: "board", editing: "true" });
-    // this.dialog = true;
+  addItem(item: any) {
+    trello.client.addCard(item.todo, "", item.listId, (error: any, result: any[]) => {
+      this.newTodo = "";
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(result);
+        this.newTodoInputShow = false;
+        this.fetch();
+      }
+    });
   }
 }
 </script>
