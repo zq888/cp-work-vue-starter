@@ -1,6 +1,6 @@
 <template>
   <v-layout fluid wrap>
-    <v-flex xs12 sm6 :key="item.id" v-for="(item, index) in items">
+    <v-flex xs12 sm3 :key="item.id" v-for="(item, index) in items">
       <v-toolbar color="purple" dark>
         <v-toolbar-title>
           <a :href="item.shortUrl" class="white--text">{{item.name}}</a>
@@ -10,13 +10,8 @@
         <template>
           <v-list-tile avatar ripple @click="editItem(item)">
             <v-list-tile-content>
-              <v-list-tile-title @click="editItem(item)" class="title">
-                {{item.name}}
-              </v-list-tile-title>
+              打开面板
             </v-list-tile-content>
-            <v-list-tile-action>
-              <v-icon color="grey lighten-1">add</v-icon>
-            </v-list-tile-action>
           </v-list-tile>
           <v-divider v-if="index + 1 < items.length" :key="`divider-${index}`"></v-divider>
         </template>

@@ -1,6 +1,19 @@
 <template>
-  <v-layout fluid wrap color="purple">
-    <v-flex xs12 sm4 :key="list.id" v-for="list in lists">
+    <v-layout fluid wrap color="purple">
+     <v-flex xs12 sm4 :key="list.id" v-for="list in lists">
+     <v-dialog persistent max-width="500px" v-model="newTodoInputShow">
+     <v-form v-show="newTodoInputShow === true">
+       <v-text-field
+       v-show="newTodoInputShow"
+       v-model="newTodo"
+       placeholder="为这张卡片输入标题"></v-text-field>
+       <v-layout align-center>
+         <v-btn class="accent" @click="addItem({todo: newTodo, listId: list.id})">
+           添加卡片
+         </v-btn>
+       </v-layout>
+     </v-form>
+     </v-dialog>
       <v-toolbar color="purple darken-3">
         <v-toolbar-title>
           <a class="white--text">{{list.name}}</a>
@@ -8,19 +21,11 @@
       </v-toolbar>
       <v-list>
         <v-form :key="card.id" v-for="card in cards" v-if="card.idList === list.id">
-          <v-text-field :value="card.name"></v-text-field>
-          <v-btn @click="openCard(card)">Open</v-btn>
-        </v-form>
-        <v-form v-show="newTodoInputShow === true">
           <v-text-field
-          v-show="newTodoInputShow"
-          v-model="newTodo"
-          placeholder="为这张卡片输入标题"></v-text-field>
-          <v-layout align-center>
-            <v-btn class="accent" @click="addItem({todo: newTodo, listId: list.id})">
-              添加卡片
-            </v-btn>
-          </v-layout>
+              prepend-icon="add"
+              @keyup.enter="openCard"
+              label="标题"
+              :value="card.name"></v-text-field>
         </v-form>
         <v-layout align-center v-show="newTodoInputShow === false">
           <v-btn class="primary" @click="newTodoInputShow = true">
@@ -46,6 +51,7 @@ const trello = new clsTrello();
 @Component
 export default class TrelloBoard extends Vue {
   // State
+  editing: boolean = false;
   lists: any[];
   cards: any[];
 
