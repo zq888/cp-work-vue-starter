@@ -9,6 +9,7 @@
       <v-list>
         <v-form :key="card.id" v-for="card in cards" v-if="card.idList === list.id">
           <v-text-field :value="card.name"></v-text-field>
+          <v-btn @click="openCard(card)">Open</v-btn>
         </v-form>
         <v-form v-show="newTodoInputShow === true">
           <v-text-field
@@ -82,6 +83,11 @@ export default class TrelloBoard extends Vue {
 
   navigate(payload: any) {
     this.$router.push({ name: "trello-page", params: payload });
+  }
+
+  openCard(item: any) {
+    console.log("Opening card..." + item.id);
+    this.navigate({ id: item.id, page: "card", editing: "true" });
   }
 
   addItem(item: any) {

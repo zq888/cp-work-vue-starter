@@ -173,7 +173,7 @@ export default class App extends Vue {
         children: [
           { icon: "add", text: "主面板", to: "/trello/index" },
           { icon: "add", text: "任务板", to: "/trello/board" },
-          { icon: "add", text: "项目", to: "/trello/item" },
+          { icon: "add", text: "卡片", to: "/trello/card" },
         ],
       },
       {
