@@ -11,20 +11,17 @@
           <v-text-field :value="card.name"></v-text-field>
         </v-form>
         <v-form v-show="newTodoInputShow === true">
-          <v-text-field 
-          v-show="newTodoInputShow" 
-          v-model="newTodo" 
+          <v-text-field
+          v-show="newTodoInputShow"
+          v-model="newTodo"
           placeholder="为这张卡片输入标题"></v-text-field>
           <v-layout align-center>
             <v-btn class="accent" @click="addItem({todo: newTodo, listId: list.id})">
               添加卡片
             </v-btn>
-            <v-avatar size="40px" class="mr-3">
-              <v-icon color="accent">minus</v-icon>
-            </v-avatar>
           </v-layout>
         </v-form>
-        <v-layout align-center>
+        <v-layout align-center v-show="newTodoInputShow === false">
           <v-btn class="primary" @click="newTodoInputShow = true">
             添加新的卡片
           </v-btn>
