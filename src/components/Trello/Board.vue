@@ -1,6 +1,6 @@
 <template>
     <v-layout fluid wrap color="purple">
-     <v-flex xs12 sm4 :key="list.id" v-for="list in lists">
+     <v-flex xs12 sm2 :key="list.id" v-for="list in lists">
      <v-dialog persistent max-width="500px" v-model="newTodoInputShow">
      <v-form v-show="newTodoInputShow === true">
        <v-text-field
